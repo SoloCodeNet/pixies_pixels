@@ -1,0 +1,332 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://assets/imgs/entities/player/JUMP_U.png" type="Texture" id=1]
+[ext_resource path="res://assets/imgs/entities/player/JUMP_D.png" type="Texture" id=2]
+[ext_resource path="res://assets/imgs/entities/player/RUN.png" type="Texture" id=3]
+[ext_resource path="res://assets/imgs/entities/player/IDLE.png" type="Texture" id=4]
+[ext_resource path="res://src/player/sub_states/None.gd" type="Script" id=5]
+[ext_resource path="res://src/player/states/jump.gd" type="Script" id=6]
+[ext_resource path="res://src/global/state_machine.gd" type="Script" id=7]
+[ext_resource path="res://src/player/states/move.gd" type="Script" id=8]
+[ext_resource path="res://src/player/player.gd" type="Script" id=9]
+[ext_resource path="res://src/player/states/idle.gd" type="Script" id=10]
+[ext_resource path="res://assets/imgs/entities/player/FALL.png" type="Texture" id=11]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 7 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.8
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 16 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "jump_fall"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 11 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "jump_up"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "jump_wslide"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.45
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 5
+collision/safe_margin = 1.0
+script = ExtResource( 9 )
+
+[node name="body" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+hframes = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource( 10 )
+
+[node name="Move" type="Node2D" parent="StateMachine"]
+script = ExtResource( 8 )
+
+[node name="Jump" type="Node2D" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="WallRaycasts" type="Node2D" parent="StateMachine/Jump"]
+
+[node name="WallRaycastsRight" type="Node2D" parent="StateMachine/Jump/WallRaycasts"]
+
+[node name="RightUpWallRaycast2" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsRight"]
+position = Vector2( 0, -3 )
+enabled = true
+cast_to = Vector2( 12, 0 )
+
+[node name="RightDownWallRaycast3" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsRight"]
+position = Vector2( 0, 7 )
+enabled = true
+cast_to = Vector2( 12, 0 )
+
+[node name="WallRaycastsLeft" type="Node2D" parent="StateMachine/Jump/WallRaycasts"]
+
+[node name="LeftUpWallRaycast" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsLeft"]
+position = Vector2( 0, -3 )
+enabled = true
+cast_to = Vector2( -12, 0 )
+
+[node name="LeftDownWallRaycast2" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsLeft"]
+position = Vector2( 0, 7 )
+enabled = true
+cast_to = Vector2( -12, 0 )
+
+[node name="WallRaycastBottom" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts"]
+enabled = true
+cast_to = Vector2( 0, 12 )
+
+[node name="WallStickyTimer" type="Timer" parent="StateMachine/Jump"]
+wait_time = 0.3
+one_shot = true
+
+[node name="JumpTimer" type="Timer" parent="StateMachine/Jump"]
+wait_time = 1.25
+one_shot = true
+
+[node name="ClimbTimer" type="Timer" parent="StateMachine/Jump"]
+wait_time = 0.5
+one_shot = true
+
+[node name="ClimbRayCasts" type="Node2D" parent="StateMachine/Jump"]
+
+[node name="ClimbRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
+position = Vector2( 0, -9 )
+enabled = true
+cast_to = Vector2( 15, -5 )
+
+[node name="ClimbWallRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( 15, 5 )
+
+[node name="ClimbWallRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( -15, 5 )
+
+[node name="ClimbRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
+position = Vector2( 0, -9 )
+enabled = true
+cast_to = Vector2( -15, -5 )
+
+[node name="SpecialStateMachine" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="None" type="Node2D" parent="SpecialStateMachine"]
+script = ExtResource( 5 )
+
+[node name="Invicible" type="Node2D" parent="SpecialStateMachine"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, 3 )
+smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/idle = SubResource( 2 )
+anims/jump_fall = SubResource( 3 )
+anims/jump_up = SubResource( 4 )
+anims/jump_wslide = SubResource( 5 )
+anims/walk = SubResource( 6 )
+[connection signal="timeout" from="StateMachine/Jump/WallStickyTimer" to="StateMachine/Jump" method="_on_WallStickyTimer_timeout"]
+[connection signal="timeout" from="StateMachine/Jump/JumpTimer" to="StateMachine/Jump" method="_on_JumpTimer_timeout"]
+[connection signal="timeout" from="StateMachine/Jump/ClimbTimer" to="StateMachine/Jump" method="_on_ClimbTimer_timeout"]

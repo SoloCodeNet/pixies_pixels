@@ -1,14 +1,38 @@
 extends Node2D
 
-#var l_up = [1,1,2,2,2,2,2,3,4,5,6,7]
-#var l_dw = [8,9,10,11,12,13,14]
-onready var back = $back_tile
-onready var base = $base_tile
+
+onready var back   = $back_tile
+onready var base   = $collision
+onready var pieges = $pieges
+onready var traps  = $traps
 
 func _ready() -> void:
-#	for tile in base.get_used_cells_by_id(0):
-#		if base.get_cellv(tile+Vector2(0,-1)) == -1:
-#			base.set_cellv(tile+Vector2(0,-1), l_up[randi()%l_up.size()])
-#		if base.get_cellv(tile+Vector2(0,1)) == -1:
-#			base.set_cellv(tile+Vector2(0,1), l_dw[randi()%l_dw.size()])
-	pass
+	add_traps()
+	
+func add_traps():
+	for tile in pieges.get_used_cells():
+		var s 
+		var index = pieges.get_cellv(tile)
+		if index == 0: # spades
+			s = preload("res://src/prefabs/traps/spades.tscn").instance()
+			s.rotation_degrees = angle_tile(tile,pieges)
+		if index == 1: # falling no break
+			s = preload("res://src/prefabs/traps/falling_rest.tscn").instance()
+		if index == 2: # falling with break
+			s = preload("res://src/prefabs/traps/falling.tscn").instance()
+		if index == 3: # cycle
+			s = preload("res://src/prefabs/traps/cycle.tscn").instance()
+		s.position =  pieges.map_to_world(tile) + Vector2(4,4)
+		pieges.set_cellv(tile, -1)
+		traps.add_child(s)
+
+			
+func angle_tile(tile:Vector2, tm:TileMap) -> float:
+	var ang = 0.0
+	var t := tm.is_cell_transposed(tile.x, tile.y)
+	var x := tm.is_cell_x_flipped(tile.x, tile.y)
+	var y := tm.is_cell_y_flipped(tile.x, tile.y)
+	if t && !x && y : ang = 270.0
+	if t && x && !y : ang = 90.0
+	if !t && x && y: ang = 180.0
+	return ang

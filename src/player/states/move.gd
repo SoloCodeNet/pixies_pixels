@@ -1,10 +1,10 @@
 extends "res://src/global/istate.gd"
 
-export(float) var MAX_WALK_SPEED := 140.0
-export(float) var MAX_RUN_SPEED := 250.0
-export(float) var ACCELLERATION_WALK := 500.0
+export(float) var MAX_WALK_SPEED := 70.0
+export(float) var MAX_RUN_SPEED := 125.0
+export(float) var ACCELLERATION_WALK := 250.0
 export(float) var ACCELLERATION_RUN := ACCELLERATION_WALK * 1.35
-export(float) var AIR_FRICTION = 240
+export(float) var AIR_FRICTION = 120
 export(float) var SLIDE_FACTOR = 0.8
 
 func handled_states():

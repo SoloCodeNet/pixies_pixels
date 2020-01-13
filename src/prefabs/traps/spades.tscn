@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/imgs/background/minimum.png" type="Texture" id=1]
+[ext_resource path="res://src/prefabs/traps/spades.gd" type="Script" id=2]
+
+[node name="spades" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="spade_area" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="spade_area"]
+rotation = 0.00548198
+polygon = PoolVector2Array( -2.98351, 3.0164, -2.01642, -2.98899, 0.983539, -3.00544, 2.01642, 2.98899 )
+
+[node name="Sprite" type="Sprite" parent="spade_area"]
+texture = ExtResource( 1 )
+vframes = 5
+hframes = 5
+frame = 11
+[connection signal="body_entered" from="spade_area" to="." method="_on_spade_area_body_entered"]

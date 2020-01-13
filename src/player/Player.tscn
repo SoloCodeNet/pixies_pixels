@@ -13,7 +13,7 @@
 [ext_resource path="res://assets/imgs/entities/player/FALL.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 7 )
+extents = Vector2( 4.25257, 7 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
@@ -220,7 +220,7 @@ tracks/2/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 101
 collision/safe_margin = 1.0
 script = ExtResource( 9 )
 
@@ -251,28 +251,28 @@ script = ExtResource( 6 )
 [node name="RightUpWallRaycast2" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsRight"]
 position = Vector2( 0, -3 )
 enabled = true
-cast_to = Vector2( 12, 0 )
+cast_to = Vector2( 7, 0 )
 
 [node name="RightDownWallRaycast3" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsRight"]
 position = Vector2( 0, 7 )
 enabled = true
-cast_to = Vector2( 12, 0 )
+cast_to = Vector2( 7, 0 )
 
 [node name="WallRaycastsLeft" type="Node2D" parent="StateMachine/Jump/WallRaycasts"]
 
 [node name="LeftUpWallRaycast" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsLeft"]
 position = Vector2( 0, -3 )
 enabled = true
-cast_to = Vector2( -12, 0 )
+cast_to = Vector2( -7, 0 )
 
 [node name="LeftDownWallRaycast2" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsLeft"]
 position = Vector2( 0, 7 )
 enabled = true
-cast_to = Vector2( -12, 0 )
+cast_to = Vector2( -7, 0 )
 
 [node name="WallRaycastBottom" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts"]
 enabled = true
-cast_to = Vector2( 0, 12 )
+cast_to = Vector2( 0, 10 )
 
 [node name="WallStickyTimer" type="Timer" parent="StateMachine/Jump"]
 wait_time = 0.3
@@ -287,26 +287,27 @@ wait_time = 0.5
 one_shot = true
 
 [node name="ClimbRayCasts" type="Node2D" parent="StateMachine/Jump"]
+visible = false
 
 [node name="ClimbRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
 position = Vector2( 0, -9 )
 enabled = true
-cast_to = Vector2( 15, -5 )
+cast_to = Vector2( 8, 0 )
 
 [node name="ClimbWallRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
 position = Vector2( 0, -8 )
 enabled = true
-cast_to = Vector2( 15, 5 )
+cast_to = Vector2( 8, 1 )
 
 [node name="ClimbWallRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
 position = Vector2( 0, -8 )
 enabled = true
-cast_to = Vector2( -15, 5 )
+cast_to = Vector2( -8, 1 )
 
 [node name="ClimbRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
 position = Vector2( 0, -9 )
 enabled = true
-cast_to = Vector2( -15, -5 )
+cast_to = Vector2( -8, 0 )
 
 [node name="SpecialStateMachine" type="Node2D" parent="."]
 script = ExtResource( 7 )

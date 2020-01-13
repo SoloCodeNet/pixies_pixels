@@ -105,3 +105,10 @@ func real_tile_size()-> Rect2:
 	var longueur:float = (nbr_width * cell_size) 
 	var largeur :float  = (longueur / ratio ) 
 	return Rect2(0,0, longueur* cut.x, largeur * cut.y)
+	
+
+	
+	
+	
+	
+	

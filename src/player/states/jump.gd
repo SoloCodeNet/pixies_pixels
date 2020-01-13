@@ -1,21 +1,22 @@
 extends "res://src/global/istate.gd"
 
 # MOUVEMENT
-export(float) var AIR_ACCELERATION_WALK := 625
+export(float) var AIR_ACCELERATION_WALK := 360
 export(float) var AIR_ACCELERATION_RUN := AIR_ACCELERATION_WALK
-export(float) var AIR_FRICTION := 100
-export(float) var MAX_AIR_SPEED_WALK := 100
-export(float) var MAX_AIR_SPEED_RUN := 120
+export(float) var AIR_FRICTION := 50
+export(float) var MAX_AIR_SPEED_WALK := 50
+export(float) var MAX_AIR_SPEED_RUN := 60
 export(float) var SLIDE_FACTOR := 1.2
 # JUMP
-export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -2250.0
-export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX * 1.15
+export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -130.0
+export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX * 1
 
-export(float) var JUMP_HEIGHT_VEL_MIN := -3.0
+export(float) var JUMP_HEIGHT_VEL_MIN := -2.0
 # WALL SLIDE/JUMP
-export(float) var WALL_JUMP_HEIGHT_WALK := 130.0
-export(float) var WALL_JUMP_HEIGHT_RUN := 300.0
-export(float) var WALL_SLIDE_CAP_GRAVITY := 102
+export(float) var WALL_JUMP_BOOST_VEL = 120
+export(float) var WALL_JUMP_HEIGHT_WALK := 75.0
+export(float) var WALL_JUMP_HEIGHT_RUN := 110.0
+export(float) var WALL_SLIDE_CAP_GRAVITY := 55
 
 
 var is_running := false
@@ -81,7 +82,7 @@ func enter(params = null, sub_state = false):
 		is_running = Input.is_action_pressed('run')
 		var wall_jump_force = WALL_JUMP_HEIGHT_RUN if is_running else WALL_JUMP_HEIGHT_WALK
 		owner.velocity.x = can_wall_jump_direction * -1  * wall_jump_force
-		owner.velocity.y = -1 * 305
+		owner.velocity.y = -1 * WALL_JUMP_BOOST_VEL
 		return sub_state("Jump")
 	
 func pre_update():
@@ -180,7 +181,7 @@ func update():
 	
 	# accélération de la déscente quand on appuie bas
 	if self.current_state in ["Fall", "Jump"] and Input.is_action_pressed('down'):
-		owner.velocity.y = lerp(owner.velocity.y, 800, 0.05)
+		owner.velocity.y = lerp(owner.velocity.y, 150, 0.05)
 	
 	# mouvement - on ne l'applique pas au WallSlide sauf si l'utilisateur insiste pour se libérer
 	if owner.direction.x and (not self.current_state in ["WallSlide", "Climb"] or wall_slide_sticky ==  StickyMode.NO_STICKY):

@@ -28,11 +28,10 @@ func _ready() -> void:
 	if Game.debug:
 		debug_label = Label.new()
 		debug_label.align = debug_label.ALIGN_CENTER
-		debug_label.add_font_override("font", load("res://resources/montserrat.tres"))
+		#debug_label.add_font_override("font", load("res://resources/montserrat.tres"))
 		self.add_child(debug_label)
 		
 func _physics_process(delta):
-
 	if Game.debug:
 		var body_size = $body.texture.get_size()
 		if special_state.name != "None":
@@ -41,7 +40,7 @@ func _physics_process(delta):
 		if debug_label_text:
 			debug_label.text += "\n" + str(debug_label_text)
 #		debug_label.rect_position = Vector2(-(body_size.x * $body.scale.x)/2 - 25, - 100)
-		debug_label.rect_position = Vector2(0, -200)
+		debug_label.rect_position = Vector2(-22, -40)
 	if not is_on_floor() and can_move:
 		velocity.y += Game.gravity * Game.gravity_factor * delta
 		if cap_gravity != 0:
@@ -65,11 +64,11 @@ func _physics_process(delta):
 	special_state_machine.pre_update()
 
 func move() -> Vector2:
-	var snap: Vector2 = Game.floor_normal * -1 * 8.0 if direction.y == 0.0 and state.name != "Jump" else Vector2.ZERO
+	var snap: Vector2 = Game.floor_normal * -1 * 2.0 if direction.y == 0.0 and state.name != "Jump" else Vector2.ZERO
 	
 	# On évite les valeurs extrêmes (force)
-	velocity.x = clamp(velocity.x, -200, 200)
-	velocity.y = clamp(velocity.y, -100, 100)
+	velocity.x = clamp(velocity.x, -2000, 2000)
+	velocity.y = clamp(velocity.y, -1000, 1000)
 	
 	velocity = move_and_slide_with_snap(velocity, snap, Game.floor_normal, true)
 	return velocity

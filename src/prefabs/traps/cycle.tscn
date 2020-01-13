@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/imgs/background/minimum.png" type="Texture" id=1]
+[ext_resource path="res://src/prefabs/traps/cycle.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "cyclique"
+
+[node name="cycle" type="KinematicBody2D"]
+collision_layer = 16
+script = ExtResource( 2 )
+
+[node name="coll" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -4, -4, 4, -4, 4, 4, -4, 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 5
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/cyclique = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -22,6 +22,8 @@ func add_traps():
 			s = preload("res://src/prefabs/traps/falling.tscn").instance()
 		if index == 3: # cycle
 			s = preload("res://src/prefabs/traps/cycle.tscn").instance()
+		if index == 4: # cycle
+			s = preload("res://src/prefabs/traps/spawn_trap.tscn").instance()
 		s.position =  pieges.map_to_world(tile) + Vector2(4,4)
 		pieges.set_cellv(tile, -1)
 		traps.add_child(s)
@@ -29,9 +31,9 @@ func add_traps():
 			
 func angle_tile(tile:Vector2, tm:TileMap) -> float:
 	var ang = 0.0
-	var t := tm.is_cell_transposed(tile.x, tile.y)
-	var x := tm.is_cell_x_flipped(tile.x, tile.y)
-	var y := tm.is_cell_y_flipped(tile.x, tile.y)
+	var t := tm.is_cell_transposed(int(tile.x), int(tile.y))
+	var x := tm.is_cell_x_flipped(int(tile.x), int(tile.y))
+	var y := tm.is_cell_y_flipped(int(tile.x), int(tile.y))
 	if t && !x && y : ang = 270.0
 	if t && x && !y : ang = 90.0
 	if !t && x && y: ang = 180.0

@@ -45,7 +45,7 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
 } ]
 1/z_index = 0
 
-[sub_resource type="TileSet" id=6]
+[sub_resource type="TileSet" id=5]
 0/name = "minimum.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
@@ -116,7 +116,7 @@ collision_mask = 32
 format = 1
 
 [node name="pieges" type="TileMap" parent="."]
-tile_set = SubResource( 6 )
+tile_set = SubResource( 5 )
 cell_size = Vector2( 8, 8 )
 format = 1
 

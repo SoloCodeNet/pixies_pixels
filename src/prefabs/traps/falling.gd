@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var touched := false
 var vel: = Vector2.ZERO
+
 func _process(delta: float) -> void:
 	if touched: 
 		vel.y += 2
@@ -15,4 +16,3 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		touched = true
 	else:
 		queue_free()
-

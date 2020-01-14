@@ -8,6 +8,7 @@ resource_name = "cyclique"
 
 [node name="cycle" type="KinematicBody2D"]
 collision_layer = 16
+collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="coll" type="CollisionPolygon2D" parent="."]

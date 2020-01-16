@@ -70,7 +70,7 @@ func _change_state(new_state_name: String, params = null, add_to_stack = true) -
 	owner[owner_property_name].node.exit(new_state_name)
 
 	if new_state_name == "previous":
-		assert(states.size() > 1)
+		assert(states.size() > 1 )
 		states.pop_front()
 		_change_state(states[0].name)
 		return

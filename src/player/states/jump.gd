@@ -2,14 +2,14 @@ extends "res://src/global/istate.gd"
 
 # MOUVEMENT
 export(float) var AIR_ACCELERATION_WALK := 360
-export(float) var AIR_ACCELERATION_RUN := AIR_ACCELERATION_WALK
+export(float) var AIR_ACCELERATION_RUN := AIR_ACCELERATION_WALK * 1.45
 export(float) var AIR_FRICTION := 50
 export(float) var MAX_AIR_SPEED_WALK := 50
 export(float) var MAX_AIR_SPEED_RUN := 60
 export(float) var SLIDE_FACTOR := 1.2
 # JUMP
 export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -130.0
-export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX * 1
+export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX 
 
 export(float) var JUMP_HEIGHT_VEL_MIN := -2.0
 # WALL SLIDE/JUMP

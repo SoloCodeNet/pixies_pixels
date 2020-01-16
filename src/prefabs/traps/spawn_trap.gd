@@ -1,5 +1,4 @@
 extends Node2D
-signal kill()
 
 var boo: = false
 

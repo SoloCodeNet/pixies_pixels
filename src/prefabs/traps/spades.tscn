@@ -18,4 +18,3 @@ texture = ExtResource( 1 )
 vframes = 5
 hframes = 5
 frame = 11
-[connection signal="body_entered" from="spade_area" to="." method="_on_spade_area_body_entered"]

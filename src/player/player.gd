@@ -1,5 +1,6 @@
 extends KinematicBody2D
 class_name Player
+signal dead()
 
 var velocity := Vector2.ZERO
 var direction = Vector2.ZERO
@@ -21,6 +22,7 @@ onready var special_state_machine  := $SpecialStateMachine
 
 func _ready() -> void:
 	name = "player"
+	add_to_group("player")
 	Engine.time_scale = Game.time_scale
 	state_machine.init()
 	special_state_machine.init("None", "special_state")

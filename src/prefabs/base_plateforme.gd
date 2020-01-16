@@ -7,9 +7,18 @@ onready var pieges = $pieges
 onready var traps  = $traps
 
 func _ready() -> void:
+	pieges.visible = false
 	add_traps()
 	
+func remove_traps():
+	if traps.get_child_count() > 0:
+		for x in traps.get_children():
+			traps.remove_child(x)
+	
+	
+	
 func add_traps():
+	var col = Color(randf(),randf(), randf())
 	for tile in pieges.get_used_cells():
 		var s 
 		var index = pieges.get_cellv(tile)
@@ -25,10 +34,9 @@ func add_traps():
 		if index == 4: # cycle
 			s = preload("res://src/prefabs/traps/spawn_trap.tscn").instance()
 		s.position =  pieges.map_to_world(tile) + Vector2(4,4)
-		pieges.set_cellv(tile, -1)
-		traps.add_child(s)
+		s.modulate = col
+		traps.call_deferred("add_child", s)
 
-			
 func angle_tile(tile:Vector2, tm:TileMap) -> float:
 	var ang = 0.0
 	var t := tm.is_cell_transposed(int(tile.x), int(tile.y))
@@ -38,3 +46,5 @@ func angle_tile(tile:Vector2, tm:TileMap) -> float:
 	if t && x && !y : ang = 90.0
 	if !t && x && y: ang = 180.0
 	return ang
+	
+

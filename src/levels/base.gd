@@ -2,6 +2,7 @@ tool
 extends Node2D
 const cell_size := 8
 onready var spawn   = $spawn_player
+onready var base_platform = $base_plateforme
 onready var _cam    = preload("res://src/helpers/cam_helper.tscn")
 onready var _player = preload("res://src/player/Player.tscn")
 var real_rect:Rect2
@@ -90,25 +91,29 @@ func _process(delta: float) -> void:
 	
 func spawn_cam():
 	cam = _cam.instance()
-	var err = cam.connect("update_posi", self, "redraw_blocks")
+#	var err = cam.connect("update_posi", self, "redraw_blocks")
+#	if err != 0 : print("connection erreur: ", err)
 	cam.position = Vector2.ZERO
 	add_child(cam)
 	cam.start(cut, real_rect, Vector2(default_zoom, default_zoom), fixed_cam)
-	if err != 0 : print("connection erreur: ", err)
 	
 func spawn_player():
 	player = _player.instance()
 	player.position = spawn.position
-	add_child(player)
+#	player.connect("dead", self, "kill_player")
+	player.call_deferred("connect", "dead", self, "kill_player")
+	call_deferred("add_child", player)
 	
 func real_tile_size()-> Rect2:
 	var longueur:float = (nbr_width * cell_size) 
 	var largeur :float  = (longueur / ratio ) 
 	return Rect2(0,0, longueur* cut.x, largeur * cut.y)
 	
-
+func kill_player():
+	player.queue_free()
+	yield(player, "tree_exited")
+	spawn_player()
+	base_platform.remove_traps()
+	base_platform.add_traps()
 	
-	
-	
-	
-	
+	print("base kill")

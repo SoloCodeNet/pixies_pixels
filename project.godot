@@ -18,16 +18,22 @@ _global_script_classes=[ {
 "class": "StateNode",
 "language": "GDScript",
 "path": "res://src/global/istate.gd"
+}, {
+"base": "Node2D",
+"class": "laser_base",
+"language": "GDScript",
+"path": "res://src/prefabs/traps/lazer_base.gd"
 } ]
 _global_script_class_icons={
 "Player": "",
-"StateNode": ""
+"StateNode": "",
+"laser_base": ""
 }
 
 [application]
 
 config/name="pixies_pixels"
-run/main_scene="res://src/levels/base.tscn"
+run/main_scene="res://src/levels/sc_lazer.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -105,4 +111,5 @@ climb={
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
+quality/depth_prepass/enable=false
 environment/default_environment="res://default_env.tres"

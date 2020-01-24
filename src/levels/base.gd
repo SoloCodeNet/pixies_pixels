@@ -117,3 +117,8 @@ func kill_player():
 	base_platform.add_traps()
 	
 	print("base kill")
+
+
+func _on_switch_body_entered(body: Node) -> void:
+	$lazer_rotate.emitting = false
+	pass # Replace with function body.

@@ -42,6 +42,10 @@ Game="*res://src/global/game_state.gd"
 Utils="*res://src/global/utils.gd"
 Event="*res://src/global/Event.gd"
 
+[debug]
+
+settings/fps/force_fps=120
+
 [display]
 
 window/vsync/use_vsync=false

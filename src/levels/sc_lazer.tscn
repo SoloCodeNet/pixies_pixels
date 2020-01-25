@@ -60,12 +60,12 @@ move_time = 4
 [node name="lazer_rotate4" parent="." instance=ExtResource( 3 )]
 position = Vector2( 288, 224 )
 rotation = 4.71238
-lazer_color = Color( 0.945098, 1, 0, 1 )
+lazer_color = Color( 0.87451, 0.12549, 0.956863, 1 )
 lazer_length = 350
 move_time = 4
-end_point = Vector2( -100, 0 )
-on_time = 1
-off_time = 2
+end_point = Vector2( -80, 0 )
+on_time = 2
+off_time = 1
 [connection signal="body_entered" from="switch" to="." method="_on_switch_body_entered"]
 
 [editable path="base_plateforme"]

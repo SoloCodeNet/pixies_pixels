@@ -28,7 +28,8 @@ func _ready() -> void:
 	revert_rota = -1 if revert_rotate else 1
 	one_point = self.global_position
 	$line.color = lazer_color
-	$blur.color = Color(lazer_color.r, lazer_color.g, lazer_color.b, 0.5)
+	$blur.color = Color(lazer_color.r, lazer_color.g, lazer_color.b, 0.05)
+#	$effect.modulate = Color(lazer_color.r, lazer_color.g, lazer_color.b, 0.9)
 	$tm_bright.start()
 	if on_time != 0 and off_time != 0: $tm_switch.start() # active le clignotement
 
@@ -47,10 +48,11 @@ func _process(delta: float) -> void:
 	$particle.position.x = 4 + longueur 
 	$blur.rect_size.x = longueur
 	$line.rect_size.x = longueur
+	$effect.region_rect.size.x = longueur
 
 func _on_tm_bright_timeout() -> void:
 	$tm_bright.wait_time = rand_range(0.1,0.3)
-	$blur.color.a = rand_range(0.0,0.3)
+	$line.color.a = rand_range(0.7,0.9)
 	$tm_bright.start()
 	
 func lazer_rotation():

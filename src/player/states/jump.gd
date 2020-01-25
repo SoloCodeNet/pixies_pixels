@@ -3,20 +3,20 @@ extends "res://src/global/istate.gd"
 # MOUVEMENT
 export(float) var AIR_ACCELERATION_WALK := 360
 export(float) var AIR_ACCELERATION_RUN := AIR_ACCELERATION_WALK * 1.45
-export(float) var AIR_FRICTION := 50
+export(float) var AIR_FRICTION := 0
 export(float) var MAX_AIR_SPEED_WALK := 50
 export(float) var MAX_AIR_SPEED_RUN := 60
 export(float) var SLIDE_FACTOR := 1.2
 # JUMP
-export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -130.0
+export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -180.0
 export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX 
 
-export(float) var JUMP_HEIGHT_VEL_MIN := -2.0
+export(float) var JUMP_HEIGHT_VEL_MIN := -50.0
 # WALL SLIDE/JUMP
-export(float) var WALL_JUMP_BOOST_VEL = 120
-export(float) var WALL_JUMP_HEIGHT_WALK := 75.0
-export(float) var WALL_JUMP_HEIGHT_RUN := 110.0
-export(float) var WALL_SLIDE_CAP_GRAVITY := 55
+export(float) var WALL_JUMP_BOOST_VEL_AXE_Y = -200
+export(float) var WALL_JUMP_HEIGHT_WALK_AXE_X := 100.0
+export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 125.0
+export(float) var WALL_SLIDE_CAP_GRAVITY := 80
 
 
 var is_running := false
@@ -31,7 +31,7 @@ var can_wall_jump = false
 var can_wall_jump_wait = false
 var can_wall_jump_direction = 0
 var nbr_wall_jump = 0
-export(int) var MAX_WALL_JUMP := 1
+export(int) var MAX_WALL_JUMP := -1 # < 0 = infinity
 
 # WallJump Node
 onready var left_wall_raycasts =  $WallRaycasts/WallRaycastsLeft
@@ -80,9 +80,12 @@ func enter(params = null, sub_state = false):
 	# On applique l'impusion du Walljump
 	if self.current_state == "WallJump":
 		is_running = Input.is_action_pressed('run')
-		var wall_jump_force = WALL_JUMP_HEIGHT_RUN if is_running else WALL_JUMP_HEIGHT_WALK
+		var wall_jump_force = WALL_JUMP_HEIGHT_RUN_AXE_X if is_running else WALL_JUMP_HEIGHT_WALK_AXE_X
 		owner.velocity.x = can_wall_jump_direction * -1  * wall_jump_force
-		owner.velocity.y = -1 * WALL_JUMP_BOOST_VEL
+		# on saute en haut si on appuye l'inverse de la direction d'un saut.
+		if self.previous_state == "Climb" and owner.direction.x == can_wall_jump_direction:
+			owner.velocity.x = 0
+		owner.velocity.y = WALL_JUMP_BOOST_VEL_AXE_Y
 		return sub_state("Jump")
 	
 func pre_update():
@@ -126,7 +129,7 @@ func pre_update():
 	if self.current_state in ["Jump", "Fall"] and wall_direction != 0:
 		return sub_state("WallSlide")
 	# détection du WallJump
-	if can_wall_jump and nbr_wall_jump < MAX_WALL_JUMP and owner.request_jump:
+	if can_wall_jump and (MAX_WALL_JUMP < 0 or nbr_wall_jump < MAX_WALL_JUMP) and owner.request_jump:
 		nbr_wall_jump += 1
 		return sub_state("WallJump")
 	# décrochage d'un WallSlide en cas d'un appuie long sur la direction opposée

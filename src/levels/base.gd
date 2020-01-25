@@ -100,8 +100,7 @@ func spawn_cam():
 func spawn_player():
 	player = _player.instance()
 	player.position = spawn.position
-#	player.connect("dead", self, "kill_player")
-	player.call_deferred("connect", "dead", self, "kill_player")
+	player.connect("dead", self, "kill_player")
 	call_deferred("add_child", player)
 	
 func real_tile_size()-> Rect2:
@@ -110,15 +109,15 @@ func real_tile_size()-> Rect2:
 	return Rect2(0,0, longueur* cut.x, largeur * cut.y)
 	
 func kill_player():
+	player.set_dead(true)
+	player.disconnect("dead", self, "kill_player")
 	player.queue_free()
 	yield(player, "tree_exited")
 	spawn_player()
-	base_platform.remove_traps()
-	base_platform.add_traps()
-	
-	print("base kill")
+	#base_platform.remove_traps()
+	#base_platform.add_traps()
 
 
 func _on_switch_body_entered(body: Node) -> void:
-	$lazer_rotate.emitting = false
+	$lazer_rotate.emitting = false  
 	pass # Replace with function body.

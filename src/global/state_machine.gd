@@ -2,7 +2,7 @@ extends Node
 
 signal state_changed(state_name)
 
-const MAX_STATE_ITEM = 10
+const MAX_STATE_ITEM = 2
 const states := []
 var states_map := {}
 var previous_state
@@ -59,7 +59,7 @@ func _change_state(new_state_name: String, params = null, add_to_stack = true) -
 		sera le suivant  Walk -> Jump -> Fall. Or on veut retourner à Walk et non à Jump,
 		c'est pourquoi dans ce cas, on ne voudra pas ajouter le sous-état à "states"
 	"""
-	#
+
 	if new_state_name == owner[owner_property_name].name:
 		return
 
@@ -70,11 +70,12 @@ func _change_state(new_state_name: String, params = null, add_to_stack = true) -
 	owner[owner_property_name].node.exit(new_state_name)
 
 	if new_state_name == "previous":
-		assert(states.size() > 1 )
+		assert(states.size() > 1)
 		states.pop_front()
 		_change_state(states[0].name)
 		return
-	
+	if new_state_name == "dead":
+		return
 	assert(states_map.has(new_state_name))
 	var new_state = {name = new_state_name, node = states_map[new_state_name]}
 	owner[owner_property_name] = new_state

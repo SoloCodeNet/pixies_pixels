@@ -23,6 +23,7 @@ onready var special_state_machine  := $SpecialStateMachine
 func _ready() -> void:
 	name = "player"
 	add_to_group("player")
+	can_move = true
 	Engine.time_scale = Game.time_scale
 	state_machine.init()
 	special_state_machine.init("None", "special_state")
@@ -84,6 +85,7 @@ func update_look_direction(force_direction = null) -> void:
 		$body.flip_h = velocity.x < 0
 
 func set_dead(value: bool) -> void:
+	state_machine._change_state("dead")
 	set_process_input(not value)
 	set_physics_process(not value)
 	$CollisionShape2D.disabled = value

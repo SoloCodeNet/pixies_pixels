@@ -76,6 +76,8 @@ func _change_state(new_state_name: String, params = null, add_to_stack = true) -
 		return
 	if new_state_name == "dead":
 		return
+	if not states_map.has(new_state_name):
+		print("** SI TU VOIS CA DONNE MOI CETTE LIGNE ** : ", new_state_name)
 	assert(states_map.has(new_state_name))
 	var new_state = {name = new_state_name, node = states_map[new_state_name]}
 	owner[owner_property_name] = new_state

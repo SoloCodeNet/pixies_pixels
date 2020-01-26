@@ -10,7 +10,7 @@ var special_state = null
 var debug_label: Label = null
 var debug_label_text = null
 var mass = 2
-var cap_gravity = 0 # permets de capper le gravité lors du walljump
+var cap_gravity = 0 # permets de capper le gravité lors du walljump, -1 = pas de gravité
 var can_move = true # permets d'annuler le move and slide
 var request_jump = false setget , get_request_jump # permets d'avoir un saut avec une certaine tolérance
 var is_on_ground_with_delay = true # donne un  délai pour autoriser un saut en retard
@@ -45,7 +45,8 @@ func _physics_process(delta):
 #		debug_label.rect_position = Vector2(-(body_size.x * $body.scale.x)/2 - 25, - 100)
 		debug_label.rect_position = Vector2(-22, -40)
 	if not is_on_floor() and can_move:
-		velocity.y += Game.gravity * Game.gravity_factor * delta
+		if cap_gravity >= 0:
+			velocity.y += Game.gravity * Game.gravity_factor * delta
 		if cap_gravity != 0:
 			velocity.y = clamp(velocity.y, -10, cap_gravity)
 	else: velocity.y = 0

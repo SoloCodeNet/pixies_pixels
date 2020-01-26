@@ -33,6 +33,9 @@ var can_wall_jump_direction = 0
 var nbr_wall_jump = 0
 export(int) var MAX_WALL_JUMP := -1 # < 0 = infinity
 
+# Dash
+var can_boost = true
+
 # WallJump Node
 onready var left_wall_raycasts =  $WallRaycasts/WallRaycastsLeft
 onready var right_wall_raycasts = $WallRaycasts/WallRaycastsRight
@@ -44,6 +47,9 @@ onready var climb_raycast_wall_check_right =  $ClimbRayCasts/ClimbWallRayCastRig
 onready var climb_raycast_left =  $ClimbRayCasts/ClimbRayCastLeft
 onready var climb_raycast_wall_check_left =  $ClimbRayCasts/ClimbWallRayCastLeft
 
+# Dash Node 
+onready var dash_min_heigth = $MinDashRayCast
+
 var can_climb = true
 var climb_detach_do = false
 var climb_direction = 0
@@ -51,7 +57,7 @@ var climb_direction = 0
 var climb_node = null
 
 func handled_states():
-	return ["Jump", "Fall", "WallSlide", "WallJump", "Climb"]
+	return ["Jump", "Fall", "WallSlide", "WallJump", "Climb", "Boost", "Dash"]
 
 func check_requirements():
 	assert(owner.cap_gravity != null and has_node("WallRaycasts") and has_node("WallStickyTimer"))
@@ -88,10 +94,33 @@ func enter(params = null, sub_state = false):
 		owner.velocity.y = WALL_JUMP_BOOST_VEL_AXE_Y
 		return sub_state("Jump")
 	
+	if self.current_state == "Boost":
+		can_boost = false
+		var dirX = owner.direction.x if owner.direction.x != 0 else  owner.previous_direction.x
+		if dirX == 0:
+			print("Bizarre")
+			dirX = 1
+		owner.velocity.x = dirX * 250
+		return sub_state("Jump")
+		
+	if self.current_state == "Dash":
+		can_boost = false
+		var dirX = owner.direction.x if owner.direction.x != 0 else  owner.previous_direction.x
+		if dirX == 0:
+			print("Bizarre")
+			dirX = 1
+		owner.velocity.x = dirX * 250
+		owner.velocity.y = 0
+		owner.cap_gravity = -1
+		yield(get_tree().create_timer(0.5),"timeout")
+		owner.cap_gravity = 0
+		
+	
 func pre_update():
 	
 	if owner.is_on_floor() and owner.velocity.y == 0:
 		nbr_wall_jump = 0
+		can_boost = true
 		return state("previous")
 	
 	prev_wall_direction = wall_direction
@@ -126,6 +155,10 @@ func pre_update():
 		return sub_state("Fall")
 	if self.current_state == "Climb": return # on reste dessus.
 	# retour en WallSlide durant un saut
+	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('boost') and can_boost and (owner.direction.x or owner.previous_direction.x) and !dash_min_heigth.is_colliding():
+		return sub_state("Boost")
+	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('dash') and can_boost and (owner.direction.x or owner.previous_direction.x) and !dash_min_heigth.is_colliding():
+		return sub_state("Dash")
 	if self.current_state in ["Jump", "Fall"] and wall_direction != 0:
 		return sub_state("WallSlide")
 	# détection du WallJump
@@ -156,7 +189,8 @@ func update():
 		if climb_node:
 			owner.global_position.y = climb_node.node.global_position.y + climb_node.offset.y
 		return
-		
+	elif self.current_state == "Dash":
+		return
 	# on regarde dans le sens inverse du mur en cas de WallSlide
 	if wall_direction: 
 		owner.update_look_direction(-1 * wall_direction)

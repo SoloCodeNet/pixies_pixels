@@ -96,20 +96,12 @@ func enter(params = null, sub_state = false):
 	
 	if self.current_state == "Boost":
 		can_boost = false
-		var dirX = owner.direction.x if owner.direction.x != 0 else  owner.previous_direction.x
-		if dirX == 0:
-			print("Bizarre")
-			dirX = 1
-		owner.velocity.x = dirX * 250
+		owner.velocity.x = _get_dash_direction() * 250
 		return sub_state("Jump")
 		
 	if self.current_state == "Dash":
 		can_boost = false
-		var dirX = owner.direction.x if owner.direction.x != 0 else  owner.previous_direction.x
-		if dirX == 0:
-			print("Bizarre")
-			dirX = 1
-		owner.velocity.x = dirX * 250
+		owner.velocity.x = _get_dash_direction() * 250
 		owner.velocity.y = 0
 		owner.cap_gravity = -1
 		yield(get_tree().create_timer(0.5),"timeout")
@@ -155,9 +147,9 @@ func pre_update():
 		return sub_state("Fall")
 	if self.current_state == "Climb": return # on reste dessus.
 	# retour en WallSlide durant un saut
-	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('boost') and can_boost and (owner.direction.x or owner.previous_direction.x) and !dash_min_heigth.is_colliding():
+	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('boost') and can_boost and _get_dash_direction() and !dash_min_heigth.is_colliding():
 		return sub_state("Boost")
-	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('dash') and can_boost and (owner.direction.x or owner.previous_direction.x) and !dash_min_heigth.is_colliding():
+	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('dash') and can_boost and _get_dash_direction() and !dash_min_heigth.is_colliding():
 		return sub_state("Dash")
 	if self.current_state in ["Jump", "Fall"] and wall_direction != 0:
 		return sub_state("WallSlide")
@@ -354,3 +346,10 @@ func _on_WallStickyTimer_timeout() -> void:
 
 func _on_ClimbTimer_timeout() -> void:
 	can_climb = true
+
+func _get_dash_direction() -> int:
+	if owner.direction.x != 0:
+		return owner.direction.x
+	if owner.velocity.x != 0:
+		return 1 if owner.velocity.x > 0 else -1
+	return 0

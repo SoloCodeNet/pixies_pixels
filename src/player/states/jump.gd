@@ -104,7 +104,7 @@ func enter(params = null, sub_state = false):
 		owner.velocity.x = _get_dash_direction() * 250
 		owner.velocity.y = 0
 		owner.cap_gravity = -1
-		yield(get_tree().create_timer(0.5),"timeout")
+		yield(get_tree().create_timer(0.25),"timeout")
 		owner.cap_gravity = 0
 		
 	

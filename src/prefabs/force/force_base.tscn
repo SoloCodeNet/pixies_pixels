@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/prefabs/force/force_base.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14.5793, 63.3144 )
+
+[node name="Force" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 1 )
+mode = "Repulse"
+axe = "Vertical"
+mass = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2.25464, -66.7887 )
+shape = SubResource( 1 )
+
+[node name="Position2D" type="Position2D" parent="."]
+[connection signal="body_entered" from="." to="." method="_on_Force_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Force_body_exited"]

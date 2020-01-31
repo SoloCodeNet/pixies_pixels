@@ -49,7 +49,6 @@ func _physics_process(delta):
 			velocity.y += Game.gravity * Game.gravity_factor * delta
 		if cap_gravity != 0:
 			velocity.y = clamp(velocity.y, -10, cap_gravity)
-	else: velocity.y = 0
 			
 	previous_direction = direction
 	direction = _get_direction()
@@ -71,8 +70,8 @@ func move() -> Vector2:
 	var snap: Vector2 = Game.floor_normal * -1 * 2.0 if direction.y == 0.0 and state.name != "Jump" else Vector2.ZERO
 	
 	# On évite les valeurs extrêmes (force)
-	velocity.x = clamp(velocity.x, -2000, 2000)
-	velocity.y = clamp(velocity.y, -1000, 1000)
+	velocity.x = clamp(velocity.x, -400, 400)
+	velocity.y = clamp(velocity.y, -400, 400)
 	
 	velocity = move_and_slide_with_snap(velocity, snap, Game.floor_normal, true)
 	return velocity
@@ -92,6 +91,9 @@ func set_dead(value: bool) -> void:
 	$CollisionShape2D.disabled = value
 
 func apply_force(force: Vector2) -> void:
+	# patch gravité au sol
+	if force.y < 0 && is_on_floor():
+		force.y = 0
 	self.velocity += force/self.mass
 	
 func get_request_jump() -> bool:

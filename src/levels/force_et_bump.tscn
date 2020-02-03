@@ -26,12 +26,12 @@ tile_data = PoolIntArray( 1900562, 0, 0, 1900563, 0, 0, 1900564, 0, 0, 1900565, 
 
 [node name="Force" parent="." instance=ExtResource( 4 )]
 position = Vector2( 121.915, 184.033 )
-mass = 70
+mass = 20
 min_force = -150
 max_force = 150
 
 [node name="CollisionShape2D" parent="Force" index="0"]
-position = Vector2( -46.1962, -79.35 )
+position = Vector2( -45.4741, -39.6338 )
 
 [node name="Position2D" parent="Force" index="1"]
 position = Vector2( -46.2792, -11.5038 )

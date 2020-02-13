@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="pixies_pixels"
-run/main_scene="res://src/levels/sc_lazer.tscn"
+run/main_scene="res://src/levels/sc_platform.tscn"
 config/icon="res://icon.png"
 
 [autoload]

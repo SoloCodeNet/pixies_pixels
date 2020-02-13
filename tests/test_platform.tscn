@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://tests/test_platform.gd" type="Script" id=1]
+
+[node name="test_platform" type="Node2D"]
+script = ExtResource( 1 )
+test_bool = true
+
+[node name="tw" type="Tween" parent="."]
+
+[node name="kb" type="KinematicBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kb"]
+polygon = PoolVector2Array( 0, 0, 40, 0, 40, 40, 0, 40 )
+
+[node name="ColorRect" type="ColorRect" parent="kb"]
+margin_right = 40.0
+margin_bottom = 40.0
+color = Color( 1, 1, 1, 0.435294 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

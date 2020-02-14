@@ -16,11 +16,11 @@ var request_jump = false setget , get_request_jump # permets d'avoir un saut ave
 var is_on_ground_with_delay = true # donne un  délai pour autoriser un saut en retard
 var is_on_ground_with_delay_waiting = false
 var is_force_applied = false # true si le player subit une force
-
+var request_new_state = null
 onready var state_machine  := $StateMachine
 onready var special_state_machine  := $SpecialStateMachine
 
-func _ready() -> void:
+func _ready() -> void:	
 	name = "player"
 	add_to_group("player")
 	can_move = true
@@ -46,10 +46,10 @@ func _physics_process(delta):
 		debug_label.rect_position = Vector2(-22, -40)
 	if not is_on_floor() and can_move:
 		if cap_gravity >= 0:
-			velocity.y += Game.gravity * Game.gravity_factor * delta
+			velocity.y += Game.gravity * Game.gravity_factor * delta * Game.get_gravity_direction()
 		if cap_gravity != 0:
 			velocity.y = clamp(velocity.y, -10, cap_gravity)
-			
+
 	previous_direction = direction
 	direction = _get_direction()
 	
@@ -57,6 +57,9 @@ func _physics_process(delta):
 	_update_request_jump()
 
 	# State Machine Flow
+	if request_new_state != null:
+		state_machine._change_state(request_new_state.name, request_new_state.params)
+		request_new_state = null
 	state_machine.pre_update()
 	special_state_machine.pre_update()
 	state_machine.update()
@@ -83,6 +86,11 @@ func update_look_direction(force_direction = null) -> void:
 		$body.flip_h =  direction.x < 0
 	else:
 		$body.flip_h = velocity.x < 0
+		
+	if Game.get_gravity_direction() == -1:
+		$body.flip_v = true
+	else:
+		$body.flip_v = false
 
 func set_dead(value: bool) -> void:
 	state_machine._change_state("dead")
@@ -118,6 +126,9 @@ func _update_is_on_ground_with_delay() -> void:
 func animator(anim:String):
 	if $AnimationPlayer.current_animation != anim:
 		$AnimationPlayer.play(anim)
+		
+func is_falling():
+	return (Game.get_gravity_direction() == 1 and velocity.y > 0) or (Game.get_gravity_direction() == -1 and velocity.y < 0) 
 	
 func _update_request_jump() -> void:
 	"""

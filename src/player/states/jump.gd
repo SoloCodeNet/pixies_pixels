@@ -79,9 +79,13 @@ func enter(params = null, sub_state = false):
 		$ClimbTimer.start()
 
 	# On applique l'impulsion du saut (seulement s'il était au sol)
-	if self.current_state == "Jump" and self.previous_state in ["Walk", "Run", "Idle", "Climb"]:
+	# and (self.previous_state in ["Walk", "Run", "Idle", "Climb"] à tester
+	if self.current_state == "Jump"  :
 		is_running = Input.is_action_pressed("run")
-		owner.velocity.y =  JUMP_HEIGHT_VEL_RUN_MAX if is_running else JUMP_HEIGHT_VEL_WALK_MAX
+		if params != null:
+			owner.velocity.y = params.vely
+		else:
+			owner.velocity.y =  (JUMP_HEIGHT_VEL_RUN_MAX if is_running else JUMP_HEIGHT_VEL_WALK_MAX) * Game.get_gravity_direction()
 	
 	# On applique l'impusion du Walljump
 	if self.current_state == "WallJump":
@@ -91,7 +95,7 @@ func enter(params = null, sub_state = false):
 		# on saute en haut si on appuye l'inverse de la direction d'un saut.
 		if self.previous_state == "Climb" and owner.direction.x == can_wall_jump_direction:
 			owner.velocity.x = 0
-		owner.velocity.y = WALL_JUMP_BOOST_VEL_AXE_Y
+		owner.velocity.y = WALL_JUMP_BOOST_VEL_AXE_Y * Game.get_gravity_direction()
 		return sub_state("Jump")
 	
 	if self.current_state == "Boost":
@@ -164,12 +168,12 @@ func pre_update():
 		return
 	# arrêt du WallJump si plus de mur
 	if self.current_state == "WallSlide" and wall_direction == 0:
-		return sub_state("Fall" if owner.velocity.y > 0 else "Jump")
+		return sub_state("Fall" if owner.is_falling() else "Jump")
 	# détection du WallSlide (sauf si le temps de recovery après un décrochage n'est pas terminé')
-	if owner.velocity.y > 0 and wall_direction != 0 and wall_slide_sticky != StickyMode.NO_STICKY:
+	if owner.is_falling() and wall_direction != 0 and wall_slide_sticky != StickyMode.NO_STICKY:
 		return sub_state("WallSlide")
 	# détection du Fall
-	if owner.velocity.y > 0 :
+	if owner.is_falling():
 		return sub_state("Fall")
 	# détection du Jump
 	if Input.is_action_just_released("jump") and self.current_state == "Jump":
@@ -196,7 +200,7 @@ func update():
 	owner.velocity.x = move_toward(owner.velocity.x, 0, AIR_FRICTION * self.delta)
 	
 	# wall slide - on applique le ralentissement (cap) uniquement s'il tombe ou veux stopper
-	if self.current_state == "WallSlide" and owner.velocity.y > 0:
+	if self.current_state == "WallSlide" and owner.is_falling():
 		owner.cap_gravity = WALL_SLIDE_CAP_GRAVITY if owner.direction.y != 1 else 0 # Si bas on annule le cap
 	# s'il monte on diminue la gravité pour qu'il glisse plus
 	#elif self.current_state == "WallSlide" and owner.velocity.y < 0:
@@ -205,12 +209,12 @@ func update():
 #		Game.gravity_factor = 1
 
 	# arrêt du saut
-	if cancel_jump and owner.velocity.y < JUMP_HEIGHT_VEL_MIN and self.current_state == "Jump":
-		owner.velocity.y = lerp(owner.velocity.y, JUMP_HEIGHT_VEL_MIN, 0.33)
+	if cancel_jump and owner.velocity.y < JUMP_HEIGHT_VEL_MIN * Game.get_gravity_direction() and self.current_state == "Jump":
+		owner.velocity.y = lerp(owner.velocity.y, JUMP_HEIGHT_VEL_MIN * Game.get_gravity_direction(), 0.33)
 	
 	# accélération de la déscente quand on appuie bas
 	if self.current_state in ["Fall", "Jump"] and Input.is_action_pressed('down'):
-		owner.velocity.y = lerp(owner.velocity.y, 150, 0.05)
+		owner.velocity.y = lerp(owner.velocity.y, 150 * Game.get_gravity_direction(), 0.05)
 	
 	# mouvement - on ne l'applique pas au WallSlide sauf si l'utilisateur insiste pour se libérer
 	if owner.direction.x and (not self.current_state in ["WallSlide", "Climb"] or wall_slide_sticky ==  StickyMode.NO_STICKY):
@@ -242,7 +246,7 @@ func is_in_climb_position():
 		return true
 	climb_direction = 0 # reset
 	climb_node = null
-	if not can_climb or owner.velocity.y < 0 or climb_raycast_right.is_colliding() or climb_raycast_left.is_colliding():
+	if not can_climb or not owner.is_falling() or climb_raycast_right.is_colliding() or climb_raycast_left.is_colliding():
 		return false
 	if climb_raycast_wall_check_right.is_colliding():
 		climb_direction = 1

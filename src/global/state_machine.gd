@@ -2,7 +2,7 @@ extends Node
 
 signal state_changed(state_name)
 
-const MAX_STATE_ITEM = 2
+const MAX_STATE_ITEM = 5
 const states := []
 var states_map := {}
 var previous_state

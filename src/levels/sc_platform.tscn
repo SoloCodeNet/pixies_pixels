@@ -24,6 +24,7 @@ position = Vector2( 32, 76 )
 [node name="platforme" parent="." instance=ExtResource( 3 )]
 texture = ExtResource( 4 )
 polygon = PoolVector2Array( 64, 96, 288, 96, 288, 192, 64, 192 )
-move_to = Vector2( 100, 0 )
+move_to = Vector2( 100, 100 )
+time_to = 1.0
 
 [editable path="base_plateforme"]

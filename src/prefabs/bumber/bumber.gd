@@ -18,6 +18,5 @@ func _ready() -> void:
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body is Player:
-		body.velocity.y = -350
-		#body.state_machine._change_state("Jump")
+		body.request_new_state = { name = "Jump", params = { vely = -350 * Game.get_gravity_direction()} }
 		

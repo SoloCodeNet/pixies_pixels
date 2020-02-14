@@ -12,3 +12,6 @@ const debug = true
 const debug_player = true
 const debug_enemies = true
 const debug_state = false
+
+func get_gravity_direction() -> int :
+	return Game.floor_normal.y * -1

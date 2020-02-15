@@ -22,7 +22,7 @@ position = Vector2( 32, 76 )
 
 [node name="mitraillette" parent="." instance=ExtResource( 5 )]
 position = Vector2( 408, 88 )
-speed = 300.0
+speed = 150.0
 cooldown = 0.2
 rattle = 5
 rota_speed = 0.01

@@ -29,7 +29,7 @@ rota_speed = 0.01
 is_locked = true
 
 [node name="head" parent="mitraillette" index="0"]
-rotation = -2.55543
+rotation = -2.11185
 
 [editable path="base_plateforme"]
 

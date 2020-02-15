@@ -1,7 +1,7 @@
 extends KinematicBody2D
 var rot
-var speed: float = 100.0
-var default_mass:float = 70
+var speed: float = 500.0
+var default_mass:float = 40
 var vel:= Vector2.ZERO
 var start_pos := Vector2.ZERO
 
@@ -19,7 +19,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if global_position.distance_to(start_pos) > 10 and get_parent().has_node("player") :
 		var p = get_parent().get_node("player")
-		vel = follow(vel,self.global_position, p.global_position, speed)
+		var follow = follow(vel,self.global_position, p.global_position, speed)
+		vel += follow
 	else:
 		vel = Vector2(speed, 0).rotated(rot) 
 	
@@ -36,4 +37,4 @@ func follow(
 	)-> Vector2:
 		var desir: = (target_pos -global_pos).normalized() * max_speed
 		var steer:= (desir - velocity) / mass
-		return velocity + steer
+		return steer

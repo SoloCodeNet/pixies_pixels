@@ -1,7 +1,7 @@
 extends KinematicBody2D
 var rot
 var speed: float 
-var default_mass:float = 50
+var mass:float = 50
 var vel:= Vector2.ZERO
 var start_pos := Vector2.ZERO
 var dead = false
@@ -27,21 +27,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if global_position.distance_to(start_pos) > 10 and player :
 		var player = get_parent().get_node("player")
-		var follow = follow(vel,self.global_position, player.global_position, speed) 
+		var follow = Steering.follow(vel,self.global_position, player.global_position, speed, mass) 
 		vel += follow * delta * 120
 	
 	vel = move_and_slide(vel)
 	if get_slide_count() > 0:
 		dead = true
 		queue_free()
-
-func follow(
-	velocity: Vector2,
-	global_pos: Vector2,
-	target_pos: Vector2,
-	max_speed : float,
-	mass: float = default_mass
-	)-> Vector2:
-		var desir: = (target_pos -global_pos).normalized() * max_speed
-		var steer:= (desir - velocity)  / mass
-		return steer

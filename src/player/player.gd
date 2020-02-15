@@ -67,7 +67,7 @@ func _physics_process(delta):
 	if can_move:
 		move()
 	state_machine.post_update()
-	special_state_machine.pre_update()
+	special_state_machine.post_update()
 
 func move() -> Vector2:
 	var snap: Vector2 = Game.floor_normal * -1 * 2.0 if direction.y == 0.0 and state.name != "Jump" else Vector2.ZERO

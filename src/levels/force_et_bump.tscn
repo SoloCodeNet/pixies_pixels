@@ -10,7 +10,7 @@ script = ExtResource( 1 )
 nbr_width = 54
 
 [node name="Bumper" parent="." instance=ExtResource( 3 )]
-position = Vector2( 79.8618, 228.272 )
+position = Vector2( 73.771, 228.741 )
 
 [node name="base_plateforme" parent="." instance=ExtResource( 2 )]
 
@@ -25,16 +25,16 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 tile_data = PoolIntArray( 1900562, 0, 0, 1900563, 0, 0, 1900564, 0, 0, 1900565, 0, 0, 1900566, 0, 0, 1900567, 0, 0, 1900568, 0, 0, 1900569, 0, 0, 1900570, 0, 0, 1900571, 0, 0, 1900572, 0, 0, 1900573, 0, 0, 1900574, 0, 0, 1900575, 0, 0, 1900576, 0, 0, 1900577, 0, 0, 1900578, 0, 0, 1900579, 0, 0, 1900580, 0, 0, 1900581, 0, 0 )
 
 [node name="Force" parent="." instance=ExtResource( 4 )]
-position = Vector2( 121.915, 184.033 )
-mass = 20
-min_force = -150
-max_force = 150
+position = Vector2( 74.9712, 187.771 )
+mass = 50
+min_force = -40
+max_force = 40
 
 [node name="CollisionShape2D" parent="Force" index="0"]
-position = Vector2( -45.4741, -39.6338 )
+position = Vector2( -1.91443, -5.00368 )
 
 [node name="Position2D" parent="Force" index="1"]
-position = Vector2( -46.2792, -11.5038 )
+position = Vector2( -2.01777, 13.7397 )
 
 [node name="spawn_player" type="Position2D" parent="."]
 position = Vector2( 24, 208 )

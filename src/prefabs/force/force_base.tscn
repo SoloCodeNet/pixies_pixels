@@ -1,9 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/prefabs/force/force_base.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14.5793, 63.3144 )
+extents = Vector2( 14.5793, 11.9571 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+lifetime_randomness = 0.74
+emission_shape = 1
+emission_sphere_radius = 16.19
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 0.0
+gravity = Vector3( 0, -50, 0 )
+initial_velocity = 97.7
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 0.83
 
 [node name="Force" type="Area2D"]
 collision_layer = 8
@@ -14,9 +27,14 @@ axe = "Vertical"
 mass = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2.25464, -66.7887 )
+position = Vector2( 0, -63 )
 shape = SubResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 50
+process_material = SubResource( 2 )
 [connection signal="body_entered" from="." to="." method="_on_Force_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Force_body_exited"]

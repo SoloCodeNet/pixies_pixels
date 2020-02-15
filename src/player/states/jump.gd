@@ -123,6 +123,8 @@ func pre_update():
 	_update_wall_direction()
 	_update_can_wall_jump()
 	
+	if owner.is_force_applied:
+		return sub_state("Fall")
 	# Détection du climb
 	if self.current_state != "Climb" && is_in_climb_position():
 		nbr_wall_jump = 0

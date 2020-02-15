@@ -19,12 +19,11 @@ func set_axe(value: String):
 	axe = value
 
 func attract(body: KinematicBody2D) -> Vector2:
-	var force: Vector2 = $Position2D.position - body.position  
+	var force: Vector2 = $Position2D.position - body.position
 	var lenght = force.length() if force.length() > 1 else 1
 	var direction = 1 if mode == "Repulse" else -1
 	
 	var strength = direction * mass * body.mass / lenght * lenght
-	print(strength)
 	strength = clamp(strength, min_force, max_force)
 	force =  force.normalized() * strength
 	
@@ -49,6 +48,7 @@ func _on_Force_body_entered(body: Node) -> void:
 	print("Force - body entered")
 	if enabled:
 		if body.has_method("apply_force"):
+			body.is_force_applied = true
 			bodies.append(body)
 			set_physics_process(true)
 
@@ -56,7 +56,7 @@ func _on_Force_body_entered(body: Node) -> void:
 func _on_Force_body_exited(body: Node) -> void:
 	if enabled:
 		if body.has_method("apply_force"):
-			body.is_force_applied = true
+			body.is_force_applied = false
 			bodies.erase(body)
 		if bodies.size() == 0:
 			set_physics_process(false)

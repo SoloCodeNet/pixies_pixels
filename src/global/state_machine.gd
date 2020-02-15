@@ -81,7 +81,7 @@ func _change_state(new_state_name: String, params = null, add_to_stack = true) -
 	assert(states_map.has(new_state_name))
 	var new_state = {name = new_state_name, node = states_map[new_state_name]}
 	owner[owner_property_name] = new_state
-	if add_to_stack:
+	if add_to_stack and states[0].name != new_state_name:
 		states.push_front(new_state)
 		if(states.size() > MAX_STATE_ITEM):
 			states.pop_back()

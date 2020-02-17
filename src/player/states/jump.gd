@@ -67,9 +67,9 @@ func enter(params = null, sub_state = false):
 	if self.current_state == "WallSlide":
 		self.change_anim("jump_wslide")
 	elif self.current_state == "Fall":
-		self.change_anim("jump_fall")
+		self.change_anim("fall_"+ owner.str_direction)
 	else:
-		self.change_anim("jump_up")
+		self.change_anim("jump_"+ owner.str_direction)
 	
 	# Climb setup
 	if self.current_state == "Climb":

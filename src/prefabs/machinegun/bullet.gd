@@ -21,7 +21,6 @@ func start(pos:Vector2, rotation_angle :float, speed_bullet: float = 1000, lifet
 			queue_free()
 	
 func _ready() -> void:
-	yield(get_tree().create_timer(0.01), "timeout")
 	$Sprite.frame=3
 
 func _process(delta: float) -> void:

@@ -11,7 +11,8 @@ func handled_states():
 	return ["Walk", "Run"]
 	
 func enter(params = null, sub_state = false):
-	self.change_anim("walk")
+	print(owner.str_direction)
+	self.change_anim("walk_" + owner.str_direction)
 	
 func pre_update():
 	# détection des états

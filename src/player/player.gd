@@ -2,6 +2,7 @@ extends KinematicBody2D
 class_name Player
 signal dead()
 
+var str_direction:String=""
 var velocity := Vector2.ZERO
 var direction = Vector2.ZERO
 var previous_direction = Vector2.ZERO
@@ -52,7 +53,9 @@ func _physics_process(delta):
 
 	previous_direction = direction
 	direction = _get_direction()
-	
+	if direction.x == 1:str_direction = "R"
+	if direction.x ==-1:str_direction = "L"
+
 	_update_is_on_ground_with_delay()
 	_update_request_jump()
 
@@ -80,12 +83,12 @@ func move() -> Vector2:
 	return velocity
 
 func update_look_direction(force_direction = null) -> void:
-	if force_direction:
-		$body.flip_h =  force_direction < 0
-	elif direction:
-		$body.flip_h =  direction.x < 0
-	else:
-		$body.flip_h = velocity.x < 0
+#	if force_direction:
+#		$body.flip_h =  force_direction < 0
+#	elif direction:
+#		$body.flip_h =  direction.x < 0
+#	else:
+#		$body.flip_h = velocity.x < 0
 		
 	if Game.get_gravity_direction() == -1:
 		$body.flip_v = true

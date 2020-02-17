@@ -141,16 +141,17 @@ static func _get_direction() -> Vector2:
 	return direction
 
 func get_anim_direction(center := false, custom_x_direction = null):
+	# Si on ne veut pas utiliser la vélocité comme direction
 	if custom_x_direction && center:
 		if custom_x_direction == 0:
 			return "C"
 	if custom_x_direction:
 		return "L" if custom_x_direction < 0 else "R"
 		
-	if direction.x < 0:
+	if velocity.x < 0:
 		return "L"
-	if direction.x > 0:
+	if velocity.x > 0:
 		return "R"
 	if center:
 		return "C"
-	return "L" if previous_direction.x < 0 else "R"
+	return "L" if direction.x < 0 else "R"

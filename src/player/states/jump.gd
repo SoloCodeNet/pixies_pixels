@@ -174,6 +174,11 @@ func pre_update():
 		cancel_jump = true
 
 func update():
+	# on regarde dans le sens inverse du mur en cas de WallSlide
+	if wall_direction:
+		_update_animation(-1 * wall_direction)
+	else:
+		_update_animation()
 
 	if self.current_state == "Climb":
 		if climb_node:
@@ -181,11 +186,6 @@ func update():
 		return
 	elif self.current_state == "Dash":
 		return
-	# on regarde dans le sens inverse du mur en cas de WallSlide
-	if wall_direction:
-		_update_animation(-1 * wall_direction)
-	else:
-		_update_animation()
 	
 	var speed = AIR_ACCELERATION_RUN if is_running else AIR_ACCELERATION_WALK
 	var max_speed = MAX_AIR_SPEED_RUN if is_running else MAX_AIR_SPEED_WALK
@@ -357,6 +357,8 @@ func _update_animation(direction = null):
 		self.change_anim("climb_", true, false, direction)
 	elif self.current_state == "Fall":
 		self.change_anim("fall_", true, true, direction)
+	elif self.current_state == "Dash":
+		self.change_anim("dash_", true, false, direction)
 	else:
 		self.change_anim("jump_", true, true, direction)
 	

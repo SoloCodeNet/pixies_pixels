@@ -4,7 +4,7 @@ const cell_size := 8
 onready var spawn   = $spawn_player
 onready var base_platform = $base_plateforme
 onready var _cam    = preload("res://src/helpers/cam_helper.tscn")
-onready var _player = preload("res://src/player/Player_128.tscn")
+onready var _player = preload("res://src/player/Player_16.tscn")
 var real_rect:Rect2
 var pos_player: Vector2
 var player : KinematicBody2D

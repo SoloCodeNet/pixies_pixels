@@ -62,15 +62,7 @@ func handled_states():
 func check_requirements():
 	assert(owner.cap_gravity != null and has_node("WallRaycasts") and has_node("WallStickyTimer"))
 
-func enter(params = null, sub_state = false):
-	# animation
-	if self.current_state == "WallSlide":
-		self.change_anim("jump_wslide")
-	elif self.current_state == "Fall":
-		self.change_anim("fall_"+ owner.str_direction)
-	else:
-		self.change_anim("jump_"+ owner.str_direction)
-	
+func enter(params = null, sub_state = false):	
 	# Climb setup
 	if self.current_state == "Climb":
 		Game.gravity_factor = 0
@@ -190,11 +182,11 @@ func update():
 	elif self.current_state == "Dash":
 		return
 	# on regarde dans le sens inverse du mur en cas de WallSlide
-	if wall_direction: 
-		owner.update_look_direction(-1 * wall_direction)
+	if wall_direction:
+		_update_animation(-1 * wall_direction)
 	else:
-		owner.update_look_direction()
-
+		_update_animation()
+	
 	var speed = AIR_ACCELERATION_RUN if is_running else AIR_ACCELERATION_WALK
 	var max_speed = MAX_AIR_SPEED_RUN if is_running else MAX_AIR_SPEED_WALK
 
@@ -359,3 +351,12 @@ func _get_dash_direction() -> int:
 	if owner.velocity.x != 0:
 		return 1 if owner.velocity.x > 0 else -1
 	return 0
+	
+func _update_animation(direction = null):
+	if self.current_state == "WallSlide" || self.current_state == "Climb":
+		self.change_anim("climb_", true, false, direction)
+	elif self.current_state == "Fall":
+		self.change_anim("fall_", true, true, direction)
+	else:
+		self.change_anim("jump_", true, true, direction)
+	

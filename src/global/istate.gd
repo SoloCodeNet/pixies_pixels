@@ -62,6 +62,11 @@ func state(state: String, params = null, add_to_stack = true) -> void:
 func sub_state(state: String, params = null) -> void:
 	state(state, params, false)
 	
-func change_anim(name: String) -> void:
+func change_anim(name: String, append_direction := false, center_direction := false, custom_x_direction = null) -> void:
 	if animation_player:
-		animation_player.play(name)
+		if append_direction and center_direction:
+			animation_player.play(name + owner.get_anim_direction(true, custom_x_direction))
+		elif append_direction and not center_direction:
+			animation_player.play(name + owner.get_anim_direction(false, custom_x_direction))
+		else:
+			animation_player.play(name)

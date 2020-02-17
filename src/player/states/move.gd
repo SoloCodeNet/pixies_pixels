@@ -10,10 +10,6 @@ export(float) var SLIDE_FACTOR = 1.2
 func handled_states():
 	return ["Walk", "Run"]
 	
-func enter(params = null, sub_state = false):
-	print(owner.str_direction)
-	self.change_anim("walk_" + owner.str_direction)
-	
 func pre_update():
 	# détection des états
 	if not owner.direction and owner.velocity.x == 0:
@@ -29,7 +25,7 @@ func update():
 	# animation
 	self.animation_player.playback_speed	 = range_lerp (abs(owner.velocity.x), 0.0, MAX_RUN_SPEED, 0, 2.5 )
 	
-	owner.update_look_direction()
+	self.change_anim("walk_", true)
 	
 	var speed = ACCELLERATION_RUN if Input.is_action_pressed("run") else ACCELLERATION_WALK
 	var max_speed = MAX_RUN_SPEED if Input.is_action_pressed("run") else MAX_WALK_SPEED

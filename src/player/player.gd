@@ -50,14 +50,13 @@ func _physics_process(delta):
 			velocity.y += Game.gravity * Game.gravity_factor * delta * Game.get_gravity_direction()
 		if cap_gravity != 0:
 			velocity.y = clamp(velocity.y, -10, cap_gravity)
-
-	previous_direction = direction
+	if direction.x != 0:
+		previous_direction = direction
 	direction = _get_direction()
-	if direction.x == 1:str_direction = "R"
-	if direction.x ==-1:str_direction = "L"
 
 	_update_is_on_ground_with_delay()
 	_update_request_jump()
+	_update_sprite_transformation()
 
 	# State Machine Flow
 	if request_new_state != null:
@@ -82,19 +81,12 @@ func move() -> Vector2:
 	velocity = move_and_slide_with_snap(velocity, snap, Game.floor_normal, true)
 	return velocity
 
-func update_look_direction(force_direction = null) -> void:
-#	if force_direction:
-#		$body.flip_h =  force_direction < 0
-#	elif direction:
-#		$body.flip_h =  direction.x < 0
-#	else:
-#		$body.flip_h = velocity.x < 0
-		
+func _update_sprite_transformation() -> void:
 	if Game.get_gravity_direction() == -1:
 		$body.flip_v = true
 	else:
 		$body.flip_v = false
-
+	
 func set_dead(value: bool) -> void:
 	state_machine._change_state("dead")
 	set_process_input(not value)
@@ -147,3 +139,18 @@ static func _get_direction() -> Vector2:
 	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 	return direction
+
+func get_anim_direction(center := false, custom_x_direction = null):
+	if custom_x_direction && center:
+		if custom_x_direction == 0:
+			return "C"
+	if custom_x_direction:
+		return "L" if custom_x_direction < 0 else "R"
+		
+	if direction.x < 0:
+		return "L"
+	if direction.x > 0:
+		return "R"
+	if center:
+		return "C"
+	return "L" if previous_direction.x < 0 else "R"

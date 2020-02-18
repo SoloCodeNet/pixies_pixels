@@ -1,6 +1,6 @@
 tool
 extends Node2D
-const cell_size := 8
+const cell_size := 128
 onready var spawn   = $spawn_player
 onready var base_platform = $base_plateforme
 onready var _cam    = preload("res://src/helpers/cam_helper.tscn")
@@ -68,10 +68,10 @@ func _draw() -> void:
 		var h: float = w / ratio
 	
 		for x in range(cut.x +1):
-			draw_line(Vector2(w * x, 0), Vector2(w * x, h * cut.y), gridColor, 2.0)
+			draw_line(Vector2(w * x, 0), Vector2(w * x, h * cut.y), gridColor, 20.0)
 			
 		for y in range(cut.y + 1):
-			draw_line(Vector2(0, h * y), Vector2(w * cut.x, h * y), gridColor, 2.0)
+			draw_line(Vector2(0, h * y), Vector2(w * cut.x, h * y), gridColor, 20.0)
 # ****************************   TOOLS
 func _ready() -> void:
 #	for nodes in $Tilemaps.get_children():

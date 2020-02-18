@@ -49,7 +49,7 @@ func _physics_process(delta):
 		if cap_gravity >= 0:
 			velocity.y += Game.gravity * Game.gravity_factor * delta * Game.get_gravity_direction()
 		if cap_gravity != 0:
-			velocity.y = clamp(velocity.y, -10, cap_gravity)
+			velocity.y = clamp(velocity.y, -1000, cap_gravity)
 	if direction.x != 0:
 		previous_direction = direction
 	direction = _get_direction()
@@ -75,8 +75,8 @@ func move() -> Vector2:
 	var snap: Vector2 = Game.floor_normal * -1 * 2.0 if direction.y == 0.0 and state.name != "Jump" else Vector2.ZERO
 	
 	# On évite les valeurs extrêmes (force)
-	velocity.x = clamp(velocity.x, -400, 400)
-	velocity.y = clamp(velocity.y, -400, 400)
+	velocity.x = clamp(velocity.x, -3200, 3200)
+	velocity.y = clamp(velocity.y, -3200, 3200)
 	
 	velocity = move_and_slide_with_snap(velocity, snap, Game.floor_normal, true)
 	return velocity

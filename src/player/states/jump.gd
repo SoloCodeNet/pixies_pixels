@@ -1,22 +1,22 @@
 extends "res://src/global/istate.gd"
 
 # MOUVEMENT
-export(float) var AIR_ACCELERATION_WALK := 360
+export(float) var AIR_ACCELERATION_WALK := 2880.0
 export(float) var AIR_ACCELERATION_RUN := AIR_ACCELERATION_WALK * 1.45
-export(float) var AIR_FRICTION := 0
-export(float) var MAX_AIR_SPEED_WALK := 50
-export(float) var MAX_AIR_SPEED_RUN := 60
+export(float) var AIR_FRICTION := 600
+export(float) var MAX_AIR_SPEED_WALK := 400
+export(float) var MAX_AIR_SPEED_RUN := 480
 export(float) var SLIDE_FACTOR := 1.2
 # JUMP
-export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -180.0
-export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX 
+export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -1440.0
+export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX * 1.15
 
-export(float) var JUMP_HEIGHT_VEL_MIN := -50.0
+export(float) var JUMP_HEIGHT_VEL_MIN := -400.0
 # WALL SLIDE/JUMP
-export(float) var WALL_JUMP_BOOST_VEL_AXE_Y = -200
-export(float) var WALL_JUMP_HEIGHT_WALK_AXE_X := 100.0
-export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 125.0
-export(float) var WALL_SLIDE_CAP_GRAVITY := 80
+export(float) var WALL_JUMP_HEIGHT_WALK_AXE_X := 1200.0
+export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 1000.0
+export(float) var WALL_SLIDE_CAP_GRAVITY := 640
+export(float) var WALL_JUMP_BOOST_VEL_AXE_Y = -2000
 
 
 var is_running := false
@@ -92,12 +92,12 @@ func enter(params = null, sub_state = false):
 	
 	if self.current_state == "Boost":
 		can_boost = false
-		owner.velocity.x = _get_dash_direction() * 250
+		owner.velocity.x = _get_dash_direction() * 2500
 		return sub_state("Jump")
 		
 	if self.current_state == "Dash":
 		can_boost = false
-		owner.velocity.x = _get_dash_direction() * 250
+		owner.velocity.x = _get_dash_direction() * 2500
 		owner.velocity.y = 0
 		owner.cap_gravity = -1
 		yield(get_tree().create_timer(0.25),"timeout")

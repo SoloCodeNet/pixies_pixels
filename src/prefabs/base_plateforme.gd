@@ -9,6 +9,8 @@ onready var traps  = $traps
 func _ready() -> void:
 	pieges.visible = false
 	add_traps()
+	for cell in $collision.get_used_cells_by_id(0):
+		$collision.set_cellv(cell, randi()% 10 )
 	
 func remove_traps():
 	if traps.get_child_count() > 0:

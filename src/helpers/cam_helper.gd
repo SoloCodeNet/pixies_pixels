@@ -32,7 +32,6 @@ func start(cut: Vector2, size: Rect2, default_zoom,fixed = false):
 	
 func _ready() -> void:
 	get_tree().get_root().connect("size_changed", self, "resize")
-	$Camera2D/Sprite.visible = false
 	
 func update_zoom(zo:Vector2):
 	new_zoom

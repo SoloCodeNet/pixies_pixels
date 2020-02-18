@@ -377,22 +377,22 @@ one_shot = true
 [node name="ClimbRayCasts" type="Node2D" parent="StateMachine/Jump"]
 
 [node name="ClimbRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( 4, -52 )
+position = Vector2( 4, -48 )
 enabled = true
 cast_to = Vector2( 32, 0 )
 
 [node name="ClimbWallRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( 4, -48 )
+position = Vector2( 4, -44 )
 enabled = true
 cast_to = Vector2( 32, 12 )
 
 [node name="ClimbWallRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( -4, -48 )
+position = Vector2( -4, -44 )
 enabled = true
 cast_to = Vector2( -32, 12 )
 
 [node name="ClimbRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( -4, -52 )
+position = Vector2( -4, -48 )
 enabled = true
 cast_to = Vector2( -32, 0 )
 

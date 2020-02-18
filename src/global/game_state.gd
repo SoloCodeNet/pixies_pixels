@@ -2,7 +2,7 @@ extends Node
 
 # Valeures globales
 var time_scale = 1
-var gravity := 450.0
+var gravity := 4000.0
 var gravity_factor := 1.0 # permets de diminuer ou augmenter la graviter
 var tile_size = 8
 var floor_normal = Vector2.UP

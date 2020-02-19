@@ -1,5 +1,6 @@
 extends Node2D
 
+var l1 = [10,11,12,13,14,15,16,17,18,19]
 
 onready var back   = $back_tile
 onready var base   = $collision
@@ -7,10 +8,14 @@ onready var pieges = $pieges
 onready var traps  = $traps
 
 func _ready() -> void:
+	randomize()
 	pieges.visible = false
 	add_traps()
 	for cell in $collision.get_used_cells_by_id(0):
-		$collision.set_cellv(cell, randi()% 10 )
+		if $collision.get_cellv(cell+ Vector2.UP)==-1:
+			$collision.set_cellv(cell, l1[randi()% l1.size()] )
+		else:
+			$collision.set_cellv(cell, randi()% 10 )
 	
 func remove_traps():
 	if traps.get_child_count() > 0:

@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://tests/platform_poly.gd" type="Script" id=1]
+[ext_resource path="res://tests/PlatformPoly.gd" type="Script" id=1]
 [ext_resource path="res://assets/imgs/platformes/plat02.png" type="Texture" id=2]
+
 
 [node name="platforme" type="Polygon2D"]
 antialiased = true

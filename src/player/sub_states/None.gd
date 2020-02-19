@@ -1,1 +1,1 @@
-extends "res://src/global/istate.gd"
+extends "res://src/global/Istate.gd"

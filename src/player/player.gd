@@ -17,6 +17,7 @@ var request_jump = false setget , get_request_jump # permets d'avoir un saut ave
 var is_on_ground_with_delay = true # donne un  délai pour autoriser un saut en retard
 var is_on_ground_with_delay_waiting = false
 var is_force_applied = false # true si le player subit une force
+var glissade_recovery = false
 var request_new_state = null
 onready var state_machine  := $StateMachine
 onready var special_state_machine  := $SpecialStateMachine
@@ -32,7 +33,7 @@ func _ready() -> void:
 	if Game.debug:
 		debug_label = Label.new()
 		debug_label.align = debug_label.ALIGN_CENTER
-		#debug_label.add_font_override("font", load("res://resources/montserrat.tres"))
+		debug_label.add_font_override("font", load("res://resources/montserrat.tres"))
 		self.add_child(debug_label)
 		
 func _physics_process(delta):
@@ -44,7 +45,7 @@ func _physics_process(delta):
 		if debug_label_text:
 			debug_label.text += "\n" + str(debug_label_text)
 #		debug_label.rect_position = Vector2(-(body_size.x * $body.scale.x)/2 - 25, - 100)
-		debug_label.rect_position = Vector2(-22, -40)
+		debug_label.rect_position = Vector2(-110, -200)
 	if not is_on_floor() and can_move:
 		if cap_gravity >= 0:
 			velocity.y += Game.gravity * Game.gravity_factor * delta * Game.get_gravity_direction()
@@ -58,6 +59,8 @@ func _physics_process(delta):
 	_update_request_jump()
 	_update_sprite_transformation()
 
+	if _is_on_water():
+		state_machine._change_state("Swim")
 	# State Machine Flow
 	if request_new_state != null:
 		state_machine._change_state(request_new_state.name, request_new_state.params)
@@ -133,6 +136,11 @@ func _update_request_jump() -> void:
 		request_jump = true
 		yield(get_tree().create_timer(0.1),"timeout")
 		request_jump = false
+		
+func _is_on_water() -> bool:
+	return false
+	#var space_state = get_world_2d().direct_space_state
+	#var results = space_state.intersect_shape()
 
 static func _get_direction() -> Vector2:
 	var direction = Vector2.ZERO

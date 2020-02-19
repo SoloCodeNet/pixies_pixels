@@ -1,9 +1,9 @@
-extends "res://src/global/istate.gd"
+extends "res://src/global/Istate.gd"
 
 # MOUVEMENT
 export(float) var AIR_ACCELERATION_WALK := 2880.0
 export(float) var AIR_ACCELERATION_RUN := AIR_ACCELERATION_WALK * 1.45
-export(float) var AIR_FRICTION := 600
+export(float) var AIR_FRICTION := 0
 export(float) var MAX_AIR_SPEED_WALK := 400
 export(float) var MAX_AIR_SPEED_RUN := 480
 export(float) var SLIDE_FACTOR := 1.2
@@ -71,8 +71,8 @@ func enter(params = null, sub_state = false):
 		$ClimbTimer.start()
 
 	# On applique l'impulsion du saut (seulement s'il était au sol)
-	# and (self.previous_state in ["Walk", "Run", "Idle", "Climb"] à tester
-	if self.current_state == "Jump"  :
+	# and self.previous_state in ["Walk", "Run", "Idle", "Climb"] à tester
+	if self.current_state == "Jump" and not self.previous_state in ["WallJump", "WallSlide"] :
 		is_running = Input.is_action_pressed("run")
 		if params != null:
 			owner.velocity.y = params.vely

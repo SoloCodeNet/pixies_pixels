@@ -16,7 +16,7 @@ func rewind() -> void:
 	$anim.play("alpha-up" if boo else "alpha-dw")
 	
 func spawn():
-	var i = preload("res://src/prefabs/traps/projectile.tscn").instance()
+	var i = preload("res://src/prefabs/traps/Projectile.tscn").instance()
 	i.position = Vector2(0, 1)
 	add_child(i)
 	

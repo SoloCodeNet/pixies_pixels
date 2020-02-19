@@ -30,16 +30,16 @@ func add_traps():
 		var s 
 		var index = pieges.get_cellv(tile)
 		if index == 0: # spades
-			s = preload("res://src/prefabs/traps/spades.tscn").instance()
+			s = preload("res://src/prefabs/traps/Spades.tscn").instance()
 			s.rotation_degrees = angle_tile(tile,pieges)
 		if index == 1: # falling no break
-			s = preload("res://src/prefabs/traps/falling_rest.tscn").instance()
+			s = preload("res://src/prefabs/traps/FallingRest.tscn").instance()
 		if index == 2: # falling with break
-			s = preload("res://src/prefabs/traps/falling.tscn").instance()
+			s = preload("res://src/prefabs/traps/Falling.tscn").instance()
 		if index == 3: # cycle
-			s = preload("res://src/prefabs/traps/cycle.tscn").instance()
+			s = preload("res://src/prefabs/traps/Cycle.tscn").instance()
 		if index == 4: # cycle
-			s = preload("res://src/prefabs/traps/spawn_trap.tscn").instance()
+			s = preload("res://src/prefabs/traps/SpawnTrap.tscn").instance()
 		s.position =  pieges.map_to_world(tile) + Vector2(4,4)
 		s.modulate = col
 		traps.call_deferred("add_child", s)

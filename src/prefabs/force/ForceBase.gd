@@ -45,7 +45,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_Force_body_entered(body: Node) -> void:
-	print("Force - body entered")
 	if enabled:
 		if body.has_method("apply_force"):
 			body.is_force_applied = true

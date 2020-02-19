@@ -7,7 +7,7 @@ export(float) var rota_speed: float= 0.4
 export(bool) var is_locked: float = false
 onready var tm = $Timer
 onready var pos = $head/pos
-var bullet_scene = preload("res://src/prefabs/machinegun/bullet.tscn")
+var bullet_scene = preload("res://src/prefabs/machinegun/Bullet.tscn")
 
 func _ready() -> void:
 	tm.wait_time = timed

@@ -1,4 +1,4 @@
-extends "res://src/global/istate.gd"
+extends "res://src/global/Istate.gd"
 
 export(float) var MAX_WALK_SPEED := 720.0
 export(float) var MAX_RUN_SPEED := 1040.0
@@ -14,6 +14,8 @@ func pre_update():
 	# détection des états
 	if not owner.direction and owner.velocity.x == 0:
 		return state("Idle")
+	if Input.is_action_just_pressed("glissade") and self.current_state == "Run" and not owner.glissade_recovery:
+		return sub_state("Glissade")
 	if owner.request_jump:
 		return state("Jump")
 	if owner.velocity.y > 0 and not owner.is_on_ground_with_delay:

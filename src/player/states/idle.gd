@@ -1,4 +1,4 @@
-extends "res://src/global/istate.gd"
+extends "res://src/global/Istate.gd"
 
 func enter(params = null, sub_state = false):
 	self.change_anim("idle_2")
@@ -10,6 +10,6 @@ func pre_update():
 func update():
 	if owner.direction or owner.velocity:
 		if Input.is_action_pressed("run"):
-			state("Run")
+			return state("Run")
 		else:
-			state("Walk")
+			return state("Walk")

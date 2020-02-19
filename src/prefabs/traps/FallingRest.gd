@@ -8,7 +8,6 @@ func _process(delta: float) -> void:
 	move_and_slide(vel)
 
 func _on_Area2D_body_entered(body: Node) -> void:
-	print(body.name)
 	if !touched:
 		yield(get_tree().create_timer(0.3), "timeout")
 		touched = true

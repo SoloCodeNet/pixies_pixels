@@ -1,7 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/levels/base.gd" type="Script" id=1]
-[ext_resource path="res://src/prefabs/base_plateforme.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/levels/Base.gd" type="Script" id=1]
+[ext_resource path="res://src/prefabs/BasePlateforme.tscn" type="PackedScene" id=2]
+
+
+
 
 [node name="base" type="Node2D"]
 script = ExtResource( 1 )

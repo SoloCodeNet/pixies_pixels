@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://src/player/player.gd"
+"path": "res://src/player/Player.gd"
 }, {
 "base": "Node",
 "class": "StateNode",
 "language": "GDScript",
-"path": "res://src/global/istate.gd"
+"path": "res://src/global/Istate.gd"
 }, {
 "base": "Node2D",
 "class": "laser_base",
 "language": "GDScript",
-"path": "res://src/prefabs/traps/lazer_base.gd"
+"path": "res://src/prefabs/traps/LazerBase.gd"
 } ]
 _global_script_class_icons={
 "Player": "",
@@ -33,13 +33,13 @@ _global_script_class_icons={
 [application]
 
 config/name="pixies_pixels"
-run/main_scene="res://src/levels/sc_platform.tscn"
+run/main_scene="res://src/levels/ScPlatform.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Game="*res://src/global/game_state.gd"
-Utils="*res://src/global/utils.gd"
+Game="*res://src/global/GameState.gd"
+Utils="*res://src/global/Utils.gd"
 Event="*res://src/global/Event.gd"
 Steering="*res://src/global/Steering.gd"
 
@@ -92,8 +92,7 @@ run={
 }
 boost={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
- ]
+"events": [  ]
 }
 climb={
 "deadzone": 0.5,
@@ -102,6 +101,11 @@ climb={
 dash={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+glissade={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
 

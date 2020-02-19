@@ -9,7 +9,6 @@ func _process(delta: float) -> void:
 	move_and_slide(vel)
 
 func _on_Area2D_body_entered(body: Node) -> void:
-	print(body.name)
 	if !touched:
 		$anim.play("touch")
 		yield(get_tree().create_timer(0.5), "timeout")

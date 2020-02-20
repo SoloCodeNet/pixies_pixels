@@ -328,7 +328,7 @@ script = ExtResource( 3 )
 texture = ExtResource( 6 )
 vframes = 16
 hframes = 16
-frame = 62
+frame = 53
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/climb_L = SubResource( 1 )
@@ -395,7 +395,7 @@ cast_to = Vector2( -40, 0 )
 [node name="WallRaycastBottom" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts"]
 position = Vector2( -4, 44 )
 enabled = true
-cast_to = Vector2( 0, 32 )
+cast_to = Vector2( 0, 55 )
 
 [node name="WallStickyTimer" type="Timer" parent="StateMachine/Jump"]
 wait_time = 0.3
@@ -434,7 +434,7 @@ cast_to = Vector2( -40, 0 )
 [node name="MinDashRayCast" type="RayCast2D" parent="StateMachine/Jump"]
 position = Vector2( 4, 44 )
 enabled = true
-cast_to = Vector2( 0, 32 )
+cast_to = Vector2( 0, 55 )
 
 [node name="Glissade" type="Node2D" parent="StateMachine"]
 script = ExtResource( 5 )

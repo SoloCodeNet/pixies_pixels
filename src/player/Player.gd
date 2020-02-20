@@ -54,6 +54,10 @@ func _physics_process(delta):
 	if direction.x != 0:
 		previous_direction = direction
 	direction = _get_direction()
+	
+	# On verra plus tard
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.set_window_fullscreen(!OS.is_window_fullscreen())
 
 	_update_is_on_ground_with_delay()
 	_update_request_jump()

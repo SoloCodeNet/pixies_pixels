@@ -27,7 +27,10 @@ func update():
 	# animation
 	self.animation_player.playback_speed	 = range_lerp (abs(owner.velocity.x), 0.0, MAX_RUN_SPEED, 0, 2.5 )
 	
-	self.change_anim("walk_", true)
+	if Input.is_action_pressed("run"):
+		self.change_anim("run_", true)
+	else:
+		self.change_anim("walk_", true)
 	
 	var speed = ACCELLERATION_RUN if Input.is_action_pressed("run") else ACCELLERATION_WALK
 	var max_speed = MAX_RUN_SPEED if Input.is_action_pressed("run") else MAX_WALK_SPEED

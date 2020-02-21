@@ -7,7 +7,7 @@ var glissade_vel := 1400
 
 func enter(params = null, sub_state = false):
 	exit = false
-	self.change_anim("fall_C")
+#	self.change_anim("Slide")
 	owner.velocity.x = glissade_vel * _get_glissade_direction()
 	yield(get_tree().create_timer(glissade_duration),"timeout")
 	exit = true
@@ -17,6 +17,7 @@ func pre_update():
 		state("Jump")
 
 func update():	
+	self.change_anim("Slide_", true)
 	if exit:
 		return state("previous")
 

@@ -1,7 +1,7 @@
 extends "res://src/global/Istate.gd"
 
 func enter(params = null, sub_state = false):
-	self.change_anim("idle_2")
+	self.change_anim("idle_1")
 	
 func pre_update():
 	if owner.request_jump:

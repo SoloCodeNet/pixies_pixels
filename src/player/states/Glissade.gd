@@ -21,7 +21,6 @@ func update():
 	if exit:
 		return state("previous")
 
-
 func exit(new_state):
 	owner.glissade_recovery = true
 	yield(get_tree().create_timer(glissade_recovery_duration),"timeout")

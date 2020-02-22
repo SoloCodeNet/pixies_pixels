@@ -13,8 +13,7 @@ func update():
 		owner.velocity.y = swim_jump * Game.get_gravity_direction()
 	if not owner._is_on_water():
 		return state("previous")
-		
-		
+
 	# déccélération
 	owner.velocity.x = move_toward(owner.velocity.x, 0, WATER_FRICTION * self.delta)
 	

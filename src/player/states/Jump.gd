@@ -18,7 +18,6 @@ export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 1000.0
 export(float) var WALL_SLIDE_CAP_GRAVITY := 640
 export(float) var WALL_JUMP_BOOST_VEL_AXE_Y = -2000
 
-
 var is_running := false
 var cancel_jump := false # Pour annuler un saut lors du relachement de la touche
 var wall_direction := 0 # Direction de contact avec un mur (-1 gauche, 0 rien, 1 droite)

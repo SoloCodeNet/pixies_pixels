@@ -52,10 +52,7 @@ func update_cam(grid_pos:Vector2, forced:bool= false):
 		return #permet de ne pas update si on sort de la zone définie
 	if old_pos == grid_pos and !forced:
 		return
-#	old_pos = grid_pos
-#	var grid_rect = Rect2(grid.cell_size * old_pos, grid.cell_size)
-#	cam.position.x  = grid_rect.position.x + (grid_rect.size.x / 2)
-#	cam.position.y  = grid_rect.position.y + (grid_rect.size.y / 2)
+
 	var grid_rect = Rect2(grid.cell_size * grid_pos, grid.cell_size)
 	var v = Vector2(
 		grid_rect.position.x + (grid_rect.size.x / 2),
@@ -64,12 +61,6 @@ func update_cam(grid_pos:Vector2, forced:bool= false):
 	tw.interpolate_property(cam, "position", cam.position, v, 1.0, Tween.TRANS_CIRC,Tween.EASE_OUT)
 	tw.start()
 	old_pos = grid_pos
-	
-
-#	for x in range(3):
-#		var f = preload("res://src/items/effects/fog.tscn").instance()
-#		f.position = cam.position 
-#		$fogs.add_child(f)
 	
 	var zo:Vector2
 	zo.x = grid_rect.size.x / ProjectSettings.get("display/window/size/width")
@@ -80,3 +71,6 @@ func update_cam(grid_pos:Vector2, forced:bool= false):
 	lbl2.text = "zoom: " + str(zo)
 	lbl3.text = "real screen pixel: " + str(grid_rect.size) 
 	emit_signal("update_posi")
+	
+func zoomed():
+	pass

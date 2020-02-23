@@ -1,21 +1,21 @@
 extends "res://src/global/Istate.gd"
 
 # MOUVEMENT
-export(float) var AIR_ACCELERATION_WALK := 2880.0
+export(float) var AIR_ACCELERATION_WALK := 3500.0
 export(float) var AIR_ACCELERATION_RUN := AIR_ACCELERATION_WALK * 1.45
 export(float) var AIR_FRICTION := 0
 export(float) var MAX_AIR_SPEED_WALK := 400
-export(float) var MAX_AIR_SPEED_RUN := 480
+export(float) var MAX_AIR_SPEED_RUN := 500
 export(float) var SLIDE_FACTOR := 1.2
 # JUMP
-export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -1440.0
+export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -1700.0
 export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX * 1.15
 
 export(float) var JUMP_HEIGHT_VEL_MIN := -400.0
 # WALL SLIDE/JUMP
-export(float) var WALL_JUMP_HEIGHT_WALK_AXE_X := 1200.0
-export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 1000.0
-export(float) var WALL_SLIDE_CAP_GRAVITY := 640
+export(float) var WALL_JUMP_HEIGHT_WALK_AXE_X := 1000.0
+export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 1400.0
+export(float) var WALL_SLIDE_CAP_GRAVITY := 600
 export(float) var WALL_JUMP_BOOST_VEL_AXE_Y = -2000
 
 var is_running := false

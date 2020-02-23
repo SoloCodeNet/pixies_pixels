@@ -1,7 +1,7 @@
 extends "res://src/global/Istate.gd"
 
 export(float) var MAX_WALK_SPEED := 720.0
-export(float) var MAX_RUN_SPEED := 1040.0
+export(float) var MAX_RUN_SPEED := 1100.0
 export(float) var ACCELLERATION_WALK := 3200.0
 export(float) var ACCELLERATION_RUN := ACCELLERATION_WALK * 1.35
 export(float) var AIR_FRICTION = 2000.0

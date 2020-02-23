@@ -12,6 +12,7 @@ func _ready() -> void:
 	pieges.visible = false
 	add_traps()
 	for cell in $collision.get_used_cells_by_id(0):
+		$back_tile.set_cellv(cell, randi()% 15)
 		if $collision.get_cellv(cell+ Vector2.UP)==-1:
 			$collision.set_cellv(cell, l1[randi()% l1.size()] )
 		else:

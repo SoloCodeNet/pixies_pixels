@@ -8,6 +8,7 @@ onready var _player = preload("res://src/player/Player128.tscn")
 var real_rect:Rect2
 var pos_player: Vector2
 var player : KinematicBody2D
+var player_cam : Camera2D
 var cam    : Node2D
 
 
@@ -88,7 +89,10 @@ func _process(delta: float) -> void:
 		if err != 0: print("relaod: ", err)
 		
 	if player != null && player.position != pos_player:
-		pos_player = player.position
+		if cam != null:
+			cam.update_posi(player)
+#		pos_player = player.position
+#		player_cam = player.get_node("Camera2D")
 	
 func spawn_cam():
 	cam = _cam.instance()

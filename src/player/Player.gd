@@ -22,6 +22,7 @@ var request_new_state = null
 var zoom_recovery = false
 onready var state_machine  := $StateMachine
 onready var special_state_machine  := $SpecialStateMachine
+onready var water_level  := $WaterLevel
 
 func _ready() -> void:	
 	name = "player"
@@ -74,7 +75,7 @@ func _physics_process(delta):
 	_update_sprite_transformation()
 
 	if _is_on_water():
-		state_machine._change_state("Swim")
+		state_machine._change_state("Swim", null, false)
 	# State Machine Flow
 	if request_new_state != null:
 		state_machine._change_state(request_new_state.name, request_new_state.params)
@@ -152,9 +153,9 @@ func _update_request_jump() -> void:
 		request_jump = false
 		
 func _is_on_water() -> bool:
-	return false
-	#var space_state = get_world_2d().direct_space_state
-	#var results = space_state.intersect_shape()
+	var space_state = get_world_2d().direct_space_state
+	var results = space_state.intersect_point(water_level.global_position, 10, [], 128)
+	return results.size() != 0
 
 static func _get_direction() -> Vector2:
 	var direction = Vector2.ZERO

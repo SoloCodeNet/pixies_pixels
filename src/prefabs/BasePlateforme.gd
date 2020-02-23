@@ -23,8 +23,6 @@ func remove_traps():
 		for x in traps.get_children():
 			traps.remove_child(x)
 	
-	
-	
 func add_traps():
 	var col = Color(randf(),randf(), randf())
 	for tile in pieges.get_used_cells():
@@ -54,5 +52,4 @@ func angle_tile(tile:Vector2, tm:TileMap) -> float:
 	if t && x && !y : ang = 90.0
 	if !t && x && y: ang = 180.0
 	return ang
-	
 

@@ -128,6 +128,8 @@ zoom={
 2d_physics/layer_5="forces"
 2d_physics/layer_6="traps"
 2d_physics/layer_7="traps2"
+2d_physics/layer_8="water"
+2d_physics/layer_9="player_hitbox"
 
 [rendering]
 

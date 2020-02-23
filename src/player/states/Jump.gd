@@ -102,9 +102,7 @@ func enter(params = null, sub_state = false):
 		yield(get_tree().create_timer(0.25),"timeout")
 		owner.cap_gravity = 0
 		
-	
 func pre_update():
-	
 	if owner.is_on_floor() and owner.velocity.y == 0:
 		nbr_wall_jump = 0
 		can_boost = true
@@ -174,7 +172,9 @@ func pre_update():
 
 func update():
 	# on regarde dans le sens inverse du mur en cas de WallSlide
-	if wall_direction:
+	if self.current_state == "Climb":
+		_update_animation(-1 * climb_direction)
+	elif self.current_state == "WallSlide":
 		_update_animation(-1 * wall_direction)
 	else:
 		_update_animation()

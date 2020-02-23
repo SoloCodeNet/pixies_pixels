@@ -84,9 +84,11 @@ func _ready() -> void:
 #	Utils.set_colorBackground(ModulateGround)
 
 func _process(delta: float) -> void:
+	if  Engine.is_editor_hint():
+		return
 	if Input.is_action_just_pressed("ui_cancel"):
 		var err: = get_tree().reload_current_scene()
-		if err != 0: print("relaod: ", err)
+		if err != 0: print("reload: ", err)
 		
 	if player != null && player.position != pos_player:
 		if cam != null:

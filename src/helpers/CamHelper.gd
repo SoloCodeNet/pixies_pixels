@@ -25,15 +25,14 @@ func _physics_process(delta: float) -> void:
 	cam.limit_top   = rec.position.y
 	cam.limit_right = rec.position.x + rec.size.x
 	cam.limit_bottom= rec.position.y + rec.size.y
-	
 #	cam.position = rec.position+ (rec.size / 2)
 	nrm_posi = rec.position+ (rec.size / 2)
 	if Utils.is_zoom_required: # avec zoom 
-		cam.position = lerp(cam.position, pos_player, 0.016)
-		cam.zoom = lerp(cam.zoom,nrm_zoom / 5, 0.008)
-	else:
-		cam.position = lerp(cam.position, pos_player, 0.008)
-		cam.zoom = lerp(cam.zoom,nrm_zoom / 1, 0.016)
+		cam.position = lerp(cam.position, pos_player, 1)
+		cam.zoom = lerp(cam.zoom,nrm_zoom / 2.5, 0.2)
+	elif cam.zoom != nrm_zoom:
+		cam.position = lerp(cam.position, pos_player, 1)
+		cam.zoom = lerp(cam.zoom, nrm_zoom / 1, 0.1)
 		
 func _process(delta: float) -> void:
 	pass

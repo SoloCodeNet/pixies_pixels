@@ -4,38 +4,46 @@ onready var cam:Camera2D = $Camera2D
 var _board:Rect2
 var _grd_sz: Vector2
 var _plyr: KinematicBody2D
+var _fixed: bool
 var old_pos : Vector2 = Vector2(0, -1)
 var new_pos : Vector2
 var nrm_zoom: Vector2
 var nrm_posi: Vector2
-
+var _free_zoom:Vector2
 func start(cut: Vector2, board: Rect2, default_zoom: Vector2, fixed:bool = true):
 	_board = board
 	_grd_sz = board.size / cut
+	_fixed = fixed
+	_free_zoom = default_zoom
 	$grid.cell_size = _grd_sz
 	nrm_zoom.x = _grd_sz.x / ProjectSettings.get("display/window/size/width")
 	nrm_zoom.y = _grd_sz.y / ProjectSettings.get("display/window/size/height")
-	cam.zoom = nrm_zoom
+	cam.zoom = nrm_zoom if _fixed else _free_zoom
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var pos_player = Utils.player_posi
 	new_pos = $grid.world_to_map(pos_player)
-	var rec:= Rect2(_grd_sz * new_pos, _grd_sz)
+	var rec:= Rect2(_grd_sz * new_pos, _grd_sz) if _fixed else _board
+	
 	cam.limit_left  = rec.position.x
 	cam.limit_top   = rec.position.y
 	cam.limit_right = rec.position.x + rec.size.x
 	cam.limit_bottom= rec.position.y + rec.size.y
+
 #	cam.position = rec.position+ (rec.size / 2)
 	nrm_posi = rec.position+ (rec.size / 2)
 	cam.position = pos_player
+	var zoom = nrm_zoom if _fixed else _free_zoom
 	if Utils.is_zoom_required: # avec zoom 
-		cam.zoom = lerp(cam.zoom,nrm_zoom / 2, 0.2)
+		cam.zoom = lerp(cam.zoom, zoom  / 2, 0.2)
 	elif cam.zoom != nrm_zoom:
-		cam.zoom.x = move_toward(cam.zoom.x, nrm_zoom.x, nrm_zoom.x/10)
-		cam.zoom.y = move_toward(cam.zoom.y, nrm_zoom.y, nrm_zoom.y/10)
+		cam.zoom.x = move_toward(cam.zoom.x, zoom.x, zoom.x/10)
+		cam.zoom.y = move_toward(cam.zoom.y, zoom.y, zoom.y/10)
 		
 func _process(delta: float) -> void:
 	pass
+	
+	
 
 #onready var scene = get_parent()
 #onready var lbl1 = $cl/mc/vbox/lbl1

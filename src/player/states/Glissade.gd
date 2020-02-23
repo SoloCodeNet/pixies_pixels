@@ -18,6 +18,7 @@ func pre_update():
 
 func update():	
 	self.change_anim("Slide_", true)
+	Utils.is_zoom_required = true
 	if exit:
 		return state("previous")
 
@@ -25,6 +26,7 @@ func exit(new_state):
 	owner.glissade_recovery = true
 	yield(get_tree().create_timer(glissade_recovery_duration),"timeout")
 	owner.glissade_recovery = false
+	Utils.is_zoom_required = false
 
 func _get_glissade_direction() -> int:
 	if owner.direction.x != 0:

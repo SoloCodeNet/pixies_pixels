@@ -1,4 +1,5 @@
 extends Node2D
+onready var scene = get_parent()
 onready var cam:Camera2D = $Camera2D
 var _board:Rect2
 var _grd_sz: Vector2
@@ -15,11 +16,10 @@ func start(cut: Vector2, board: Rect2, default_zoom: Vector2, fixed:bool = true)
 	nrm_zoom.x = _grd_sz.x / ProjectSettings.get("display/window/size/width")
 	nrm_zoom.y = _grd_sz.y / ProjectSettings.get("display/window/size/height")
 	cam.zoom = nrm_zoom
-	
-func update_posi(player:KinematicBody2D): # every frame
-	var z = Input.is_action_pressed("zoom")
-	_plyr = player
-	new_pos = $grid.world_to_map(player.position)
+
+func _physics_process(delta: float) -> void:
+	var pos_player = Utils.player_posi
+	new_pos = $grid.world_to_map(pos_player)
 	var rec:= Rect2(_grd_sz * new_pos, _grd_sz)
 	cam.limit_left  = rec.position.x
 	cam.limit_top   = rec.position.y
@@ -28,11 +28,11 @@ func update_posi(player:KinematicBody2D): # every frame
 	
 #	cam.position = rec.position+ (rec.size / 2)
 	nrm_posi = rec.position+ (rec.size / 2)
-	if z: # avec zoom 
-		cam.position = lerp(cam.position, _plyr.position, 0.016)
+	if Utils.is_zoom_required: # avec zoom 
+		cam.position = lerp(cam.position, pos_player, 0.016)
 		cam.zoom = lerp(cam.zoom,nrm_zoom / 5, 0.008)
 	else:
-		cam.position = lerp(cam.position, _plyr.position, 0.008)
+		cam.position = lerp(cam.position, pos_player, 0.008)
 		cam.zoom = lerp(cam.zoom,nrm_zoom / 1, 0.016)
 		
 func _process(delta: float) -> void:

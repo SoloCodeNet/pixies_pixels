@@ -90,8 +90,8 @@ func _process(delta: float) -> void:
 		
 	if player != null && player.position != pos_player:
 		if cam != null:
-			cam.update_posi(player)
-#		pos_player = player.position
+#			cam.update_posi(player)
+			Utils.player_posi = player.position
 #		player_cam = player.get_node("Camera2D")
 	
 func spawn_cam():

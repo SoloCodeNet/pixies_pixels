@@ -19,6 +19,7 @@ var is_on_ground_with_delay_waiting = false
 var is_force_applied = false # true si le player subit une force
 var glissade_recovery = false
 var request_new_state = null
+var zoom_recovery = false
 onready var state_machine  := $StateMachine
 onready var special_state_machine  := $SpecialStateMachine
 
@@ -26,7 +27,6 @@ func _ready() -> void:
 	name = "player"
 	add_to_group("player")
 	can_move = true
-	Engine.time_scale = Game.time_scale
 	state_machine.init()
 	special_state_machine.init("None", "special_state")
 
@@ -37,6 +37,7 @@ func _ready() -> void:
 		self.add_child(debug_label)
 		
 func _physics_process(delta):
+	Engine.time_scale = Game.time_scale
 	if Game.debug:
 		var body_size = $body.texture.get_size()
 		if special_state.name != "None":
@@ -55,9 +56,18 @@ func _physics_process(delta):
 		previous_direction = direction
 	direction = _get_direction()
 	
-	# On verra plus tard
+	# On verra plus tard si on ne place pas ca dans event
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.set_window_fullscreen(!OS.is_window_fullscreen())
+	if Input.is_action_just_pressed("zoom") and not zoom_recovery:
+		zoom_recovery = true
+		Utils.is_zoom_required = true
+		Game.time_scale = 0.2
+		yield(get_tree().create_timer(0.35),"timeout")
+		Utils.is_zoom_required = false
+		Game.time_scale = 1	
+		yield(get_tree().create_timer(1),"timeout")
+		zoom_recovery = false
 
 	_update_is_on_ground_with_delay()
 	_update_request_jump()

@@ -1,7 +1,7 @@
 extends "res://src/global/Istate.gd"
 
 var exit := false
-var glissade_duration := 0.8
+var glissade_duration := 0.6
 var glissade_recovery_duration := 0.5
 var glissade_vel := 1400
 
@@ -18,12 +18,10 @@ func pre_update():
 
 func update():	
 	self.change_anim("Slide_", true)
-	Utils.is_zoom_required = true
-	if exit:
+	if exit or owner.velocity == Vector2.ZERO:
 		return state("previous")
 
 func exit(new_state):
-	Utils.is_zoom_required = false
 	owner.glissade_recovery = true
 	yield(get_tree().create_timer(glissade_recovery_duration),"timeout")
 	owner.glissade_recovery = false

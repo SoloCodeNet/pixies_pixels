@@ -8,13 +8,13 @@ export(float) var MAX_AIR_SPEED_WALK := 400
 export(float) var MAX_AIR_SPEED_RUN := 500
 export(float) var SLIDE_FACTOR := 1.2
 # JUMP
-export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -1700.0
+export(float) var JUMP_HEIGHT_VEL_WALK_MAX := -1420.0
 export(float) var JUMP_HEIGHT_VEL_RUN_MAX := JUMP_HEIGHT_VEL_WALK_MAX * 1.15
 
 export(float) var JUMP_HEIGHT_VEL_MIN := -400.0
 # WALL SLIDE/JUMP
-export(float) var WALL_JUMP_HEIGHT_WALK_AXE_X := 1000.0
-export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 1400.0
+export(float) var WALL_JUMP_HEIGHT_WALK_AXE_X := 920.0
+export(float) var WALL_JUMP_HEIGHT_RUN_AXE_X := 1320.0
 export(float) var WALL_SLIDE_CAP_GRAVITY := 600
 export(float) var WALL_JUMP_BOOST_VEL_AXE_Y = -2000
 

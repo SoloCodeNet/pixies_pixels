@@ -17,7 +17,7 @@ func pre_update():
 		state("Jump")
 
 func update():	
-	self.change_anim("Slide_", true)
+	self.change_anim("slide_", true)
 	if exit or owner.velocity == Vector2.ZERO:
 		return state("previous")
 

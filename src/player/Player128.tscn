@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://src/player/states/Swim.gd" type="Script" id=1]
 [ext_resource path="res://src/player/states/Idle.gd" type="Script" id=2]
@@ -10,63 +10,7 @@
 [ext_resource path="res://src/global/StateMachine.gd" type="Script" id=8]
 [ext_resource path="res://src/player/states/Move.gd" type="Script" id=9]
 
-[sub_resource type="Animation" id=1]
-resource_name = "Slide_L"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 88 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("body:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "Slide_R"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 89 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("body:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=8]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -94,7 +38,7 @@ tracks/1/keys = {
 "values": [ Vector2( -25, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=9]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -122,7 +66,7 @@ tracks/1/keys = {
 "values": [ Vector2( 25, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=10]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -150,7 +94,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=11]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -178,7 +122,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=12]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("body:frame")
@@ -205,7 +149,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=13]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("body:frame")
@@ -232,7 +176,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=14]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("body:frame")
@@ -259,7 +203,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=15]
 length = 3.2
 loop = true
 tracks/0/type = "value"
@@ -287,7 +231,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=16]
 length = 5.0
 loop = true
 tracks/0/type = "value"
@@ -315,7 +259,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=17]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -343,7 +287,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=18]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -371,7 +315,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=19]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -399,7 +343,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=20]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -427,7 +371,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=21]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -455,7 +399,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=22]
 length = 2.4
 loop = true
 tracks/0/type = "value"
@@ -483,7 +427,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=23]
 length = 2.4
 loop = true
 tracks/0/type = "value"
@@ -511,7 +455,208 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=1]
+resource_name = "slide_L"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 88 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "slide_R"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 89 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "swim_C"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 90, 91, 92, 93, 94, 95, 96, 97 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "swim_D"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 122, 123, 124, 125, 126, 127, 128, 129 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "swim_L"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 98, 99, 100, 101, 102, 103, 104, 105 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "swim_R"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 106, 107, 108, 109, 110, 111, 112, 113 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "swim_U"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 114, 115, 116, 117, 118, 119, 120, 121 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=24]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -539,7 +684,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=25]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -567,7 +712,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=21]
+[sub_resource type="RectangleShape2D" id=26]
 extents = Vector2( 39, 55 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -579,35 +724,42 @@ script = ExtResource( 3 )
 texture = ExtResource( 6 )
 vframes = 16
 hframes = 16
-frame = 62
+frame = 90
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Slide_L = SubResource( 1 )
-anims/Slide_R = SubResource( 2 )
-anims/climb_L = SubResource( 3 )
-anims/climb_R = SubResource( 4 )
-anims/dash_L = SubResource( 5 )
-anims/dash_R = SubResource( 6 )
-anims/fall_C = SubResource( 7 )
-anims/fall_L = SubResource( 8 )
-anims/fall_R = SubResource( 9 )
-anims/idle_1 = SubResource( 10 )
-anims/idle_2 = SubResource( 11 )
-anims/idle_3 = SubResource( 12 )
-anims/idle_4 = SubResource( 13 )
-anims/jump_C = SubResource( 14 )
-anims/jump_L = SubResource( 15 )
-anims/jump_R = SubResource( 16 )
-anims/run_L = SubResource( 17 )
-anims/run_R = SubResource( 18 )
-anims/walk_L = SubResource( 19 )
-anims/walk_R = SubResource( 20 )
+anims/climb_L = SubResource( 8 )
+anims/climb_R = SubResource( 9 )
+anims/dash_L = SubResource( 10 )
+anims/dash_R = SubResource( 11 )
+anims/fall_C = SubResource( 12 )
+anims/fall_L = SubResource( 13 )
+anims/fall_R = SubResource( 14 )
+anims/idle_1 = SubResource( 15 )
+anims/idle_2 = SubResource( 16 )
+anims/idle_3 = SubResource( 17 )
+anims/idle_4 = SubResource( 18 )
+anims/jump_C = SubResource( 19 )
+anims/jump_L = SubResource( 20 )
+anims/jump_R = SubResource( 21 )
+anims/run_L = SubResource( 22 )
+anims/run_R = SubResource( 23 )
+anims/slide_L = SubResource( 1 )
+anims/slide_R = SubResource( 2 )
+anims/swim_C = SubResource( 3 )
+anims/swim_D = SubResource( 4 )
+anims/swim_L = SubResource( 5 )
+anims/swim_R = SubResource( 6 )
+anims/swim_U = SubResource( 7 )
+anims/walk_L = SubResource( 24 )
+anims/walk_R = SubResource( 25 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 9 )
-shape = SubResource( 21 )
+shape = SubResource( 26 )
 
 [node name="StateMachine" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 8 )
 
 [node name="Idle" type="Node2D" parent="StateMachine"]

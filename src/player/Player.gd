@@ -182,5 +182,4 @@ func get_anim_direction(center := false, custom_x_direction = null):
 	return "L" if direction.x < 0 else "R"
 
 func _on_ClimbTimer_timeout() -> void:
-	print("Can!")
 	can_climb = true

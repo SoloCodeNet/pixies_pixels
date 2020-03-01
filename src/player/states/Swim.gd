@@ -1,9 +1,9 @@
 extends "res://src/global/Istate.gd"
 
-var swim_speed = 3000
-var swim_max_speed = 200
-var swim_jump = -500
-export(float) var WATER_FRICTION := 700
+var SWIN_SPEED = 3000
+var SWIM_MAX_SPEED = 200
+var SWIM_JUMP = -500
+var WATER_FRICTION := 700
 
 func enter(params = null, sub_state = false):
 	Game.gravity_factor = 0.0
@@ -28,15 +28,15 @@ func update():
 	
 	# mouvement	
 	if owner.direction.x:
-		owner.velocity.x += owner.direction.x * swim_speed * self.delta
+		owner.velocity.x += owner.direction.x * SWIN_SPEED * self.delta
 	if owner.direction.y:
-		owner.velocity.y += owner.direction.y * swim_speed * self.delta
-	if abs(owner.velocity.x) > swim_max_speed :
-		owner.velocity.x  = sign(owner.velocity.x) * swim_max_speed	
+		owner.velocity.y += owner.direction.y * SWIN_SPEED * self.delta
+	if abs(owner.velocity.x) > SWIM_MAX_SPEED :
+		owner.velocity.x  = sign(owner.velocity.x) * SWIM_MAX_SPEED	
 
 	# jump/limite
 	if owner.request_jump and owner.direction == Vector2.ZERO:
-		owner.velocity.y = swim_jump * Game.get_gravity_direction()
+		owner.velocity.y = SWIM_JUMP * Game.get_gravity_direction()
 	else:
 		owner.velocity.x = clamp(owner.velocity.x, -200, 200)
 		owner.velocity.y = clamp(owner.velocity.y, -400, 200)

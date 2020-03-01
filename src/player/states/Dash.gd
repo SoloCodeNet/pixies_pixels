@@ -23,5 +23,4 @@ func _get_dash_direction() -> int:
 	if owner.direction.x != 0:
 		return owner.direction.x
 	return 1 if owner.velocity.x > 0 else -1
-	
 

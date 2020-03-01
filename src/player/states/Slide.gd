@@ -1,15 +1,14 @@
 extends "res://src/global/Istate.gd"
 
 var exit := false
-var glissade_duration := 0.6
-var glissade_recovery_duration := 0.5
-var glissade_vel := 1400
+var SLIDE_DURATION := 0.6
+var SLIDE_RECOVERY_DURATION := 0.5
+var SLIDE_VELOCITY := 1400
 
 func enter(params = null, sub_state = false):
 	exit = false
-#	self.change_anim("Slide")
-	owner.velocity.x = glissade_vel * _get_glissade_direction()
-	yield(get_tree().create_timer(glissade_duration),"timeout")
+	owner.velocity.x = SLIDE_VELOCITY * _get_glissade_direction()
+	yield(get_tree().create_timer(SLIDE_DURATION),"timeout")
 	exit = true
 
 func pre_update():
@@ -23,7 +22,7 @@ func update():
 
 func exit(new_state):
 	owner.glissade_recovery = true
-	yield(get_tree().create_timer(glissade_recovery_duration),"timeout")
+	yield(get_tree().create_timer(SLIDE_RECOVERY_DURATION),"timeout")
 	owner.glissade_recovery = false
 
 func _get_glissade_direction() -> int:

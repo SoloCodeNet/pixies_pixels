@@ -9,8 +9,8 @@ onready var climb_raycast_wall_check_left =  $'../../StateNodes/ClimbRayCasts/Cl
 onready var node_climb_timer = $'../../StateNodes/ClimbTimer'
 onready var climb_min_heigth = $'../../StateNodes/MinGroundDistance'
 
-var climb_detach_do = false
-var climb_direction = 0
+var climb_detach_do := false
+var climb_direction := 0
 var climb_node = null
 
 enum ClimbStatus {NORMAL, WAITING, DETACH} 

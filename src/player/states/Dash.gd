@@ -1,9 +1,9 @@
 extends "res://src/global/Istate.gd"
 
 var DASH_DURATION := 0.4
-var DASH_VEL_X = 1500
+var DASH_VEL_X := 1500
 
-var can_dash = true
+var can_dash := true
 onready var dash_min_heigth = $'../../StateNodes/MinGroundDistance'
 
 func enter(params = null, sub_state = false):

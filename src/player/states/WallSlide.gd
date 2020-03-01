@@ -1,11 +1,11 @@
 extends "res://src/global/Istate.gd"
 
 # WALL SLIDE/JUMP
-var WALL_JUMP_HEIGHT_WALK_AXE_X := 920.0
-var WALL_JUMP_HEIGHT_RUN_AXE_X := 1320.0
-var WALL_SLIDE_DECELERATION = 0
+var WALL_JUMP_HEIGHT_WALK_AXE_X := 850.0
+var WALL_JUMP_HEIGHT_RUN_AXE_X := 1250.0
+var WALL_SLIDE_DECELERATION := 0
 var WALL_SLIDE_CAP_GRAVITY := 550
-var WALL_JUMP_BOOST_VEL_AXE_Y = -2000
+var WALL_JUMP_BOOST_VEL_AXE_Y := -1800
 
 onready var left_wall_raycasts =  $'../../StateNodes/WallRaycasts/WallRaycastsLeft'
 onready var right_wall_raycasts = $'../../StateNodes/WallRaycasts/WallRaycastsRight'
@@ -18,10 +18,10 @@ var prev_wall_direction := 0
 enum StickyMode {STICKY, NO_STICKY, WAITING} 
 var wall_slide_sticky = StickyMode.STICKY
 # Permets un retard sur le walljump
-var can_wall_jump = false
-var can_wall_jump_wait = false
-var can_wall_jump_direction = 0
-var nbr_wall_jump = 0
+var can_wall_jump := false
+var can_wall_jump_wait := false
+var can_wall_jump_direction := 0
+var nbr_wall_jump := 0
 export(int) var MAX_WALL_JUMP := -1 # < 0 = infinity
 
 onready var node_climb =  $"../Climb"

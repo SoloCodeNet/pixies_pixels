@@ -1,8 +1,8 @@
 extends "res://src/global/Istate.gd"
 
-var SWIN_SPEED = 3000
-var SWIM_MAX_SPEED = 200
-var SWIM_JUMP = -500
+var SWIN_SPEED := 3000
+var SWIM_MAX_SPEED := 200
+var SWIM_JUMP := -500
 var WATER_FRICTION := 700
 
 func enter(params = null, sub_state = false):

@@ -4,8 +4,8 @@ var MAX_WALK_SPEED := 400.0
 var MAX_RUN_SPEED := 1000.0
 var ACCELLERATION_WALK := 3200.0
 var ACCELLERATION_RUN := ACCELLERATION_WALK * 1.35
-var AIR_FRICTION = 2000.0
-var SLIDE_FACTOR = 1.2
+var AIR_FRICTION := 2000.0
+var SLIDE_FACTOR := 1.2
 
 func handled_states():
 	return ["Walk", "Run"]

@@ -17,9 +17,9 @@ var is_running := false
 var cancel_jump := false # Pour annuler un saut lors du relachement de la touche
 
 # State Nodes
-onready var node_wallslide =  $"../WallSlide"
-onready var node_dash =  $"../Dash"
-onready var node_climb =  $"../Climb"
+onready var node_wallslide = $"../WallSlide"
+onready var node_dash = $"../Dash"
+onready var node_climb = $"../Climb"
 
 func handled_states():
 	return ["Jump", "Fall"]

@@ -56,7 +56,7 @@ var climb_direction = 0
 var climb_node = null
 
 func handled_states():
-	return ["Jump", "Fall", "WallSlide", "WallJump", "Climb", "Boost", "Dash"]
+	return ["Jump", "Fall", "WallSlide", "WallJump", "Climb", "Dash"]
 
 func check_requirements():
 	assert(owner.cap_gravity != null and has_node("WallRaycasts") and has_node("WallStickyTimer"))
@@ -88,18 +88,13 @@ func enter(params = null, sub_state = false):
 			owner.velocity.x = 0
 		owner.velocity.y = WALL_JUMP_BOOST_VEL_AXE_Y * Game.get_gravity_direction()
 		return sub_state("Jump")
-	
-	if self.current_state == "Boost":
-		can_boost = false
-		owner.velocity.x = _get_dash_direction() * 2500
-		return sub_state("Jump")
 		
 	if self.current_state == "Dash":
 		can_boost = false
-		owner.velocity.x = _get_dash_direction() * 2500
+		owner.velocity.x = _get_dash_direction() * 1500
 		owner.velocity.y = 0
 		owner.cap_gravity = -1
-		yield(get_tree().create_timer(0.25),"timeout")
+		yield(get_tree().create_timer(0.4),"timeout")
 		owner.cap_gravity = 0
 		
 func pre_update():

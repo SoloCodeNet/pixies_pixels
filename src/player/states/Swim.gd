@@ -35,7 +35,7 @@ func update():
 		owner.velocity.x  = sign(owner.velocity.x) * swim_max_speed	
 
 	# jump/limite
-	if owner.request_jump:
+	if owner.request_jump and owner.direction == Vector2.ZERO:
 		owner.velocity.y = swim_jump * Game.get_gravity_direction()
 	else:
 		owner.velocity.x = clamp(owner.velocity.x, -200, 200)

@@ -25,6 +25,9 @@ export(int) var MAX_WALL_JUMP := -1 # < 0 = infinity
 
 onready var node_climb =  $"../Climb"
 
+func check_requirements():
+	assert(has_node("../../StateNodes/WallRaycasts") and has_node("../../StateNodes/WallStickyTimer"))
+			
 func handled_states():
 	return ["WallSlide", "WallJump"]
 
@@ -39,6 +42,8 @@ func enter(params = null, sub_state = false):
 		return sub_state("Jump")
 
 func pre_update():
+	if self.current_state == "WallJump":
+		return
 	_update_walljump()
 	# détection du WallJump
 	if can_wall_jump and (MAX_WALL_JUMP < 0 or nbr_wall_jump < MAX_WALL_JUMP) and owner.request_jump:
@@ -55,20 +60,19 @@ func pre_update():
 		return
 	if wall_slide_sticky == StickyMode.NO_STICKY:
 		return sub_state("Fall")
-	# arrêt du WallJump si plus de mur
-	if self.current_state == "WallSlide" and wall_direction == 0:
+	# arrêt du WallSlide si plus de mur
+	if wall_direction == 0:
 		return sub_state("Fall" if owner.is_falling() else "Jump")
 	
 func update():
 	self.change_anim("climb_", true, false, -1 * wall_direction)
 	
 	# wall slide - on applique le ralentissement (cap) uniquement s'il tombe ou veux stopper
-	if self.current_state == "WallSlide" and owner.is_falling():
+	if owner.is_falling():
 		owner.cap_gravity = WALL_SLIDE_CAP_GRAVITY if owner.direction.y != 1 else 0 # Si bas on annule le cap
 	
 func exit(new_state):
-	if current_state == "WallSlide" : 
-		owner.cap_gravity = 0 # restaure la gravité quand on quite le WallSlide
+	owner.cap_gravity = 0 # restaure la gravité quand on quite le WallSlide
 
 func is_ready_walljump() -> bool:
 	return wall_direction != 0 and wall_slide_sticky != StickyMode.NO_STICKY
@@ -79,15 +83,15 @@ func _update_walljump():
 	_update_can_wall_jump()
 
 func _update_can_wall_jump():
-	if current_state == "WallSlide" and prev_wall_direction != 0 and wall_direction == 0 and not can_wall_jump_wait:
+	if self.current_state == "WallSlide" and prev_wall_direction != 0 and wall_direction == 0 and not can_wall_jump_wait:
 		can_wall_jump = true
 		can_wall_jump_wait = true
 		can_wall_jump_direction = prev_wall_direction
 		yield(get_tree().create_timer(0.1),"timeout")
 		can_wall_jump_wait = false
-		if wall_direction == 0 and current_state != "WallSlide":
+		if wall_direction == 0 and self.current_state != "WallSlide":
 			can_wall_jump = false
-	if current_state == "WallSlide" and wall_direction != 0 : 
+	if self.current_state == "WallSlide" and wall_direction != 0 : 
 		can_wall_jump = true
 		can_wall_jump_direction = wall_direction
 	elif not can_wall_jump_wait:

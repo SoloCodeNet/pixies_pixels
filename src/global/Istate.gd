@@ -5,8 +5,8 @@ class_name StateNode
 signal finished(next_state_name, params)
 
 var delta setget , get_delta
-var current_state
-var previous_state
+var current_state  setget , get_current_state
+var previous_state  setget , get_previous_state
 var animation_player: AnimationPlayer
 
 # permets de vérifier que les propriétés/noeuds dont le state a besoin sont présentes
@@ -16,10 +16,6 @@ func check_requirements():
 # permets d'initialiser des valeurs
 func setup():
 	pass
-# permets d'accéder simplement à ces valeurs dans un state
-func _setup_enter(new_state, previous_state):
-	self.current_state = new_state
-	self.previous_state = previous_state
 	
 # initialisation du state (animation, etc.)
 func enter(params = null, sub_state = false):
@@ -52,6 +48,10 @@ func on_animation_finished(anim_name):
 # facilité d'écriture
 func get_delta():
 	return get_physics_process_delta_time()
+func get_current_state():
+	return owner.state_machine.current_state.name
+func get_previous_state():
+	return owner.state_machine.previous_state.name
 
 # raccourci pour changer de state (avec un test pour éviter un signal inutile)
 func state(state: String, params = null, add_to_stack = true) -> void:

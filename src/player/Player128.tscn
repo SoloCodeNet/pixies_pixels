@@ -808,11 +808,6 @@ position = Vector2( -4, 32 )
 enabled = true
 cast_to = Vector2( -40, 0 )
 
-[node name="WallRaycastBottom" type="RayCast2D" parent="StateNodes/WallRaycasts"]
-position = Vector2( -4, 44 )
-enabled = true
-cast_to = Vector2( 0, 55 )
-
 [node name="WallStickyTimer" type="Timer" parent="StateNodes"]
 wait_time = 0.3
 one_shot = true

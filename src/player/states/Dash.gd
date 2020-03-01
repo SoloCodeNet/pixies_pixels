@@ -10,10 +10,10 @@ func enter(params = null, sub_state = false):
 	can_dash = false
 	owner.velocity.x = _get_dash_direction() * DASH_VEL_X
 	owner.velocity.y = 0
-	owner.cap_gravity = -1
+	owner.apply_gravity = false
 	self.change_anim("dash_", true, false)
 	yield(get_tree().create_timer(DASH_DURATION),"timeout")
-	owner.cap_gravity = 0
+	owner.apply_gravity = true
 	return sub_state("Jump", {}) if owner.velocity.y < 0 else sub_state("Fall")
 
 func is_request_dash() -> bool:

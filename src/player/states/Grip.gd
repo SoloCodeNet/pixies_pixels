@@ -13,6 +13,8 @@ var climb_detach_do = false
 var climb_direction = 0
 var climb_node = null
 
+enum ClimbStatus {NORMAL, WAITING, DETACH} 
+var climb_status = ClimbStatus.NORMAL
 
 func enter(params = null, sub_state = false):
 	Game.gravity_factor = 0
@@ -21,13 +23,15 @@ func enter(params = null, sub_state = false):
 
 func pre_update():
 	# Détection plateforme qui disparaitrait
+	if climb_status == ClimbStatus.DETACH:
+		return sub_state("Fall")
 	if not is_no_more_in_climb():
-		if climb_detach_do == false:
-			climb_detach_do = true
-			yield(get_tree().create_timer(0.5),"timeout")
-			climb_detach_do = false
+		if climb_status == ClimbStatus.NORMAL:
+			climb_status = ClimbStatus.WAITING
+			yield(get_tree().create_timer(0.3),"timeout")
+			climb_status = ClimbStatus.NORMAL
 			if not not is_no_more_in_climb():
-				return sub_state("Fall")
+				climb_status = ClimbStatus.DETACH
 		return
 	# Détection du climb jump
 	if owner.request_jump:
@@ -50,7 +54,6 @@ func exit(new_state):
 	climb_direction = 0
 	climb_node = null
 	owner.can_climb = false
-	print("Can!")
 	node_climb_timer.start()
 
 func is_no_more_in_climb():

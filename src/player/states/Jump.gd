@@ -24,11 +24,6 @@ onready var node_climb =  $"../Climb"
 func handled_states():
 	return ["Jump", "Fall"]
 
-func check_requirements():
-	assert(owner.cap_gravity != null 
-			and has_node("../../StateNodes/WallRaycasts")
-			and has_node("../../StateNodes/WallStickyTimer"))
-
 func enter(params = null, sub_state = false):	
 	# On applique l'impulsion du saut (seulement s'il était au sol)
 	# and self.previous_state in ["Walk", "Run", "Idle", "Climb"] à tester

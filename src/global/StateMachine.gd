@@ -6,6 +6,7 @@ const MAX_STATE_ITEM = 5
 const states := []
 var states_map := {}
 var previous_state
+var current_state
 var owner_property_name
 
 func init(default_state: String = "Idle", owner_property_name: String = "state", animation_node_name: String = "AnimationPlayer") -> void:
@@ -65,30 +66,30 @@ func _change_state(new_state_name: String, params = null, add_to_stack = true) -
 
 	if Game.debug_state:
 		print(new_state_name)
-	previous_state = owner[owner_property_name]
-
-	owner[owner_property_name].node.exit(new_state_name)
 
 	if new_state_name == "previous":
 		assert(states.size() > 1)
 		states.pop_front()
 		_change_state(states[0].name)
 		return
+
+	owner[owner_property_name].node.exit(new_state_name)	
 	if new_state_name == "dead":
 		return
 	if not states_map.has(new_state_name):
 		print("** SI TU VOIS CA DONNE MOI CETTE LIGNE ** : ", new_state_name)
 	assert(states_map.has(new_state_name))
 	var new_state = {name = new_state_name, node = states_map[new_state_name]}
+	previous_state = owner[owner_property_name]
 	owner[owner_property_name] = new_state
+	current_state = new_state
+
 	if add_to_stack and states[0].name != new_state_name:
 		states.push_front(new_state)
 		if(states.size() > MAX_STATE_ITEM):
 			states.pop_back()
-
-	owner[owner_property_name].node._setup_enter(new_state_name, previous_state.name)
+	
 	owner[owner_property_name].node.enter(params, !add_to_stack)
-
 	emit_signal("state_changed", owner[owner_property_name].name)
 
 func _on_animation_finished(anim_name: String):

@@ -33,7 +33,7 @@ var nbr_wall_jump = 0
 export(int) var MAX_WALL_JUMP := -1 # < 0 = infinity
 
 # Dash
-var can_boost = true
+var can_dash = true
 
 # WallJump Node
 onready var left_wall_raycasts =  $WallRaycasts/WallRaycastsLeft
@@ -56,12 +56,15 @@ var climb_direction = 0
 var climb_node = null
 
 func handled_states():
-	return ["Jump", "Fall", "WallSlide", "WallJump", "Climb", "Dash"]
+	return ["Jump", "Fall", "WallSlide", "WallJump", "Climb"]
 
 func check_requirements():
 	assert(owner.cap_gravity != null and has_node("WallRaycasts") and has_node("WallStickyTimer"))
 
 func enter(params = null, sub_state = false):	
+
+	if self.previous_state == "Dash":
+		can_dash = false
 	# Climb setup
 	if self.current_state == "Climb":
 		Game.gravity_factor = 0
@@ -73,9 +76,11 @@ func enter(params = null, sub_state = false):
 	# and self.previous_state in ["Walk", "Run", "Idle", "Climb"] à tester
 	if self.current_state == "Jump" and not self.previous_state in ["WallJump", "WallSlide"] :
 		is_running = Input.is_action_pressed("run")
-		if params != null:
+		if params != null and "vely" in params: # impulsion personnalisée
 			owner.velocity.y = params.vely
-		else:
+		elif params != null: # pas r'impulsion
+			pass
+		else: # impulsion par défaut
 			owner.velocity.y =  (JUMP_HEIGHT_VEL_RUN_MAX if is_running else JUMP_HEIGHT_VEL_WALK_MAX) * Game.get_gravity_direction()
 	
 	# On applique l'impusion du Walljump
@@ -88,19 +93,12 @@ func enter(params = null, sub_state = false):
 			owner.velocity.x = 0
 		owner.velocity.y = WALL_JUMP_BOOST_VEL_AXE_Y * Game.get_gravity_direction()
 		return sub_state("Jump")
-		
-	if self.current_state == "Dash":
-		can_boost = false
-		owner.velocity.x = _get_dash_direction() * 1500
-		owner.velocity.y = 0
-		owner.cap_gravity = -1
-		yield(get_tree().create_timer(0.4),"timeout")
-		owner.cap_gravity = 0
+	
 		
 func pre_update():
 	if owner.is_on_floor() and owner.velocity.y == 0:
 		nbr_wall_jump = 0
-		can_boost = true
+		can_dash = true
 		return state("previous")
 	
 	prev_wall_direction = wall_direction
@@ -137,9 +135,7 @@ func pre_update():
 		return sub_state("Fall")
 	if self.current_state == "Climb": return # on reste dessus.
 	# retour en WallSlide durant un saut
-	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('boost') and can_boost and _get_dash_direction() and !dash_min_heigth.is_colliding():
-		return sub_state("Boost")
-	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('dash') and can_boost and _get_dash_direction() and !dash_min_heigth.is_colliding():
+	if self.current_state in ["Jump", "Fall"] and Input.is_action_just_pressed('dash') and can_dash and owner.velocity.x != 0 and !dash_min_heigth.is_colliding():
 		return sub_state("Dash")
 	if self.current_state in ["Jump", "Fall"] and wall_direction != 0:
 		return sub_state("WallSlide")
@@ -338,21 +334,12 @@ func _on_WallStickyTimer_timeout() -> void:
 
 func _on_ClimbTimer_timeout() -> void:
 	can_climb = true
-
-func _get_dash_direction() -> int:
-	if owner.direction.x != 0:
-		return owner.direction.x
-	if owner.velocity.x != 0:
-		return 1 if owner.velocity.x > 0 else -1
-	return 0
 	
 func _update_animation(direction = null):
 	if self.current_state == "WallSlide" || self.current_state == "Climb":
 		self.change_anim("climb_", true, false, direction)
 	elif self.current_state == "Fall":
 		self.change_anim("fall_", true, true, direction)
-	elif self.current_state == "Dash":
-		self.change_anim("dash_", true, false, direction)
 	else:
 		self.change_anim("jump_", true, true, direction)
 	

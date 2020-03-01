@@ -24,7 +24,7 @@ func enter(params = null, sub_state = false):
 func pre_update():
 	# Détection plateforme qui disparaitrait
 	if climb_status == ClimbStatus.DETACH:
-		return sub_state("Fall")
+		return sub_state("WallSlide")
 	if not is_no_more_in_climb():
 		if climb_status == ClimbStatus.NORMAL:
 			climb_status = ClimbStatus.WAITING
@@ -41,7 +41,7 @@ func pre_update():
 		else:
 			return sub_state("WallJump")
 	if Input.is_action_just_pressed("down"):
-		return sub_state("Fall")
+		return sub_state("WallSlide")
 
 func update():
 	self.change_anim("climb_", true, false, -1 * climb_direction)

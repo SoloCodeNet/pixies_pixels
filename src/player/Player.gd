@@ -4,22 +4,23 @@ signal dead()
 
 var str_direction:String=""
 var velocity := Vector2.ZERO
-var direction = Vector2.ZERO
-var previous_direction = Vector2.ZERO
+var direction := Vector2.ZERO
+var previous_direction := Vector2.ZERO
 var state = null
 var special_state = null
 var debug_label: Label = null
 var debug_label_text = null
-var mass = 2
-var cap_gravity = 0 # permets de capper le gravité lors du walljump, -1 = pas de gravité
-var can_move = true # permets d'annuler le move and slide
-var request_jump = false setget , get_request_jump # permets d'avoir un saut avec une certaine tolérance
-var is_on_ground_with_delay = true # donne un  délai pour autoriser un saut en retard
-var is_on_ground_with_delay_waiting = false
-var is_force_applied = false # true si le player subit une force
-var glissade_recovery = false
+var mass := 2
+var cap_gravity := 0.0 # permets de capper le gravité lors du walljump, -1 = pas de gravité
+var can_move := true # permets d'annuler le move and slide
+var request_jump := false setget , get_request_jump # permets d'avoir un saut avec une certaine tolérance
+var is_on_ground_with_delay := true # donne un  délai pour autoriser un saut en retard
+var is_on_ground_with_delay_waiting := false
+var is_force_applied := false # true si le player subit une force
+var glissade_recovery := false
 var request_new_state = null
-var zoom_recovery = false
+var zoom_recovery := false
+var can_climb := true # permts de définir si le player peut s'aggriper
 onready var state_machine  := $StateMachine
 onready var special_state_machine  := $SpecialStateMachine
 onready var water_level  := $WaterLevel
@@ -136,6 +137,7 @@ func _update_is_on_ground_with_delay() -> void:
 		is_on_ground_with_delay_waiting = false
 		if not is_on_floor():
 			self.is_on_ground_with_delay = false
+
 func animator(anim:String):
 	if $AnimationPlayer.current_animation != anim:
 		$AnimationPlayer.play(anim)
@@ -178,3 +180,7 @@ func get_anim_direction(center := false, custom_x_direction = null):
 	if center:
 		return "C"
 	return "L" if direction.x < 0 else "R"
+
+func _on_ClimbTimer_timeout() -> void:
+	print("Can!")
+	can_climb = true

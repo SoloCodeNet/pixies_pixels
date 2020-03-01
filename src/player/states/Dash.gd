@@ -3,7 +3,11 @@ extends "res://src/global/Istate.gd"
 var DASH_DURATION := 0.4
 var DASH_VEL_X = 1500
 
+var can_dash = true
+onready var dash_min_heigth = $'../../StateNodes/MinGroundDistance'
+
 func enter(params = null, sub_state = false):
+	can_dash = false
 	owner.velocity.x = _get_dash_direction() * DASH_VEL_X
 	owner.velocity.y = 0
 	owner.cap_gravity = -1
@@ -12,9 +16,12 @@ func enter(params = null, sub_state = false):
 	owner.cap_gravity = 0
 	return sub_state("Jump", {}) if owner.velocity.y < 0 else sub_state("Fall")
 
+func is_request_dash() -> bool:
+	return Input.is_action_just_pressed('dash') and can_dash and owner.velocity.x != 0 and !dash_min_heigth.is_colliding()
+
 func _get_dash_direction() -> int:
 	if owner.direction.x != 0:
 		return owner.direction.x
 	return 1 if owner.velocity.x > 0 else -1
-
+	
 

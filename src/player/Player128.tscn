@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://src/player/states/Swim.gd" type="Script" id=1]
 [ext_resource path="res://src/player/states/Idle.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://src/global/StateMachine.gd" type="Script" id=8]
 [ext_resource path="res://src/player/states/Move.gd" type="Script" id=9]
 [ext_resource path="res://src/player/states/Dash.gd" type="Script" id=10]
+[ext_resource path="res://src/player/states/Grip.gd" type="Script" id=11]
+[ext_resource path="res://src/player/states/WallSlide.gd" type="Script" id=12]
 
 [sub_resource type="Animation" id=1]
 length = 0.4
@@ -748,12 +750,10 @@ anims/walk_L = SubResource( 24 )
 anims/walk_R = SubResource( 25 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 9 )
 shape = SubResource( 26 )
 
 [node name="StateMachine" type="Node2D" parent="."]
-visible = false
 script = ExtResource( 8 )
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
@@ -765,88 +765,92 @@ script = ExtResource( 9 )
 [node name="Jump" type="Node2D" parent="StateMachine"]
 script = ExtResource( 4 )
 
-[node name="WallRaycasts" type="Node2D" parent="StateMachine/Jump"]
-
-[node name="WallRaycastsRight" type="Node2D" parent="StateMachine/Jump/WallRaycasts"]
-
-[node name="RightUpWallRaycast" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsRight"]
-position = Vector2( 4, -12 )
-enabled = true
-cast_to = Vector2( 40, 0 )
-
-[node name="RightDownWallRaycast" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsRight"]
-position = Vector2( 4, 32 )
-enabled = true
-cast_to = Vector2( 40, 0 )
-
-[node name="WallRaycastsLeft" type="Node2D" parent="StateMachine/Jump/WallRaycasts"]
-
-[node name="LeftUpWallRaycast" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsLeft"]
-position = Vector2( -4, -12 )
-enabled = true
-cast_to = Vector2( -40, 0 )
-
-[node name="LeftDownWallRaycast" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts/WallRaycastsLeft"]
-position = Vector2( -4, 32 )
-enabled = true
-cast_to = Vector2( -40, 0 )
-
-[node name="WallRaycastBottom" type="RayCast2D" parent="StateMachine/Jump/WallRaycasts"]
-position = Vector2( -4, 44 )
-enabled = true
-cast_to = Vector2( 0, 55 )
-
-[node name="WallStickyTimer" type="Timer" parent="StateMachine/Jump"]
-wait_time = 0.3
-one_shot = true
-
-[node name="JumpTimer" type="Timer" parent="StateMachine/Jump"]
-wait_time = 1.25
-one_shot = true
-
-[node name="ClimbTimer" type="Timer" parent="StateMachine/Jump"]
-wait_time = 0.5
-one_shot = true
-
-[node name="ClimbRayCasts" type="Node2D" parent="StateMachine/Jump"]
-
-[node name="ClimbRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( 4, -38 )
-enabled = true
-cast_to = Vector2( 40, 0 )
-
-[node name="ClimbWallRayCastRight" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( 4, -38 )
-enabled = true
-cast_to = Vector2( 40, 12 )
-
-[node name="ClimbWallRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( -4, -38 )
-enabled = true
-cast_to = Vector2( -40, 12 )
-
-[node name="ClimbRayCastLeft" type="RayCast2D" parent="StateMachine/Jump/ClimbRayCasts"]
-position = Vector2( -4, -38 )
-enabled = true
-cast_to = Vector2( -40, 0 )
-
-[node name="MinDashRayCast" type="RayCast2D" parent="StateMachine/Jump"]
-position = Vector2( 4, 44 )
-enabled = true
-cast_to = Vector2( 0, 55 )
-
 [node name="Glissade" type="Node2D" parent="StateMachine"]
 script = ExtResource( 5 )
 
 [node name="Swim" type="Node2D" parent="StateMachine"]
 script = ExtResource( 1 )
 
-[node name="Grip" type="Node2D" parent="StateMachine"]
+[node name="Climb" type="Node2D" parent="StateMachine"]
+script = ExtResource( 11 )
 
 [node name="WallSlide" type="Node2D" parent="StateMachine"]
+script = ExtResource( 12 )
 
 [node name="Dash" type="Node2D" parent="StateMachine"]
 script = ExtResource( 10 )
+
+[node name="StateNodes" type="Node2D" parent="."]
+
+[node name="WallRaycasts" type="Node2D" parent="StateNodes"]
+
+[node name="WallRaycastsRight" type="Node2D" parent="StateNodes/WallRaycasts"]
+
+[node name="RightUpWallRaycast" type="RayCast2D" parent="StateNodes/WallRaycasts/WallRaycastsRight"]
+position = Vector2( 4, -12 )
+enabled = true
+cast_to = Vector2( 40, 0 )
+
+[node name="RightDownWallRaycast" type="RayCast2D" parent="StateNodes/WallRaycasts/WallRaycastsRight"]
+position = Vector2( 4, 32 )
+enabled = true
+cast_to = Vector2( 40, 0 )
+
+[node name="WallRaycastsLeft" type="Node2D" parent="StateNodes/WallRaycasts"]
+
+[node name="LeftUpWallRaycast" type="RayCast2D" parent="StateNodes/WallRaycasts/WallRaycastsLeft"]
+position = Vector2( -4, -12 )
+enabled = true
+cast_to = Vector2( -40, 0 )
+
+[node name="LeftDownWallRaycast" type="RayCast2D" parent="StateNodes/WallRaycasts/WallRaycastsLeft"]
+position = Vector2( -4, 32 )
+enabled = true
+cast_to = Vector2( -40, 0 )
+
+[node name="WallRaycastBottom" type="RayCast2D" parent="StateNodes/WallRaycasts"]
+position = Vector2( -4, 44 )
+enabled = true
+cast_to = Vector2( 0, 55 )
+
+[node name="WallStickyTimer" type="Timer" parent="StateNodes"]
+wait_time = 0.3
+one_shot = true
+
+[node name="JumpTimer" type="Timer" parent="StateNodes"]
+wait_time = 1.25
+one_shot = true
+
+[node name="ClimbTimer" type="Timer" parent="StateNodes"]
+wait_time = 0.2
+one_shot = true
+
+[node name="ClimbRayCasts" type="Node2D" parent="StateNodes"]
+
+[node name="ClimbRayCastRight" type="RayCast2D" parent="StateNodes/ClimbRayCasts"]
+position = Vector2( 4, -38 )
+enabled = true
+cast_to = Vector2( 45, -10 )
+
+[node name="ClimbRayCastLeft" type="RayCast2D" parent="StateNodes/ClimbRayCasts"]
+position = Vector2( -4, -38 )
+enabled = true
+cast_to = Vector2( -45, -10 )
+
+[node name="ClimbWallRayCastRight" type="RayCast2D" parent="StateNodes/ClimbRayCasts"]
+position = Vector2( 4, -38 )
+enabled = true
+cast_to = Vector2( 45, 17 )
+
+[node name="ClimbWallRayCastLeft" type="RayCast2D" parent="StateNodes/ClimbRayCasts"]
+position = Vector2( -4, -38 )
+enabled = true
+cast_to = Vector2( -45, 17 )
+
+[node name="MinGroundDistance" type="RayCast2D" parent="StateNodes"]
+position = Vector2( 4, 44 )
+enabled = true
+cast_to = Vector2( 0, 70 )
 
 [node name="SpecialStateMachine" type="Node2D" parent="."]
 script = ExtResource( 8 )
@@ -861,6 +865,6 @@ position = Vector2( 0, 3 )
 smoothing_enabled = true
 
 [node name="WaterLevel" type="Position2D" parent="."]
-[connection signal="timeout" from="StateMachine/Jump/WallStickyTimer" to="StateMachine/Jump" method="_on_WallStickyTimer_timeout"]
-[connection signal="timeout" from="StateMachine/Jump/JumpTimer" to="StateMachine/Jump" method="_on_JumpTimer_timeout"]
-[connection signal="timeout" from="StateMachine/Jump/ClimbTimer" to="StateMachine/Jump" method="_on_ClimbTimer_timeout"]
+[connection signal="timeout" from="StateNodes/WallStickyTimer" to="StateMachine/WallSlide" method="_on_WallStickyTimer_timeout"]
+[connection signal="timeout" from="StateNodes/JumpTimer" to="StateMachine/Jump" method="_on_JumpTimer_timeout"]
+[connection signal="timeout" from="StateNodes/ClimbTimer" to="." method="_on_ClimbTimer_timeout"]

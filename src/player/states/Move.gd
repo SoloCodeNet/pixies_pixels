@@ -14,8 +14,8 @@ func pre_update():
 	# détection des états
 	if not owner.direction and owner.velocity.x == 0:
 		return state("Idle")
-	if Input.is_action_just_pressed("glissade") and self.current_state == "Run" and not owner.glissade_recovery:
-		return sub_state("Glissade")
+	if Input.is_action_just_pressed("slide") and self.current_state == "Run" and not owner.glissade_recovery:
+		return sub_state("Slide")
 	if owner.request_jump:
 		return state("Jump")
 	if owner.velocity.y > 0 and not owner.is_on_ground_with_delay:

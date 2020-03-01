@@ -29,9 +29,10 @@ func pre_update():
 		if climb_status == ClimbStatus.NORMAL:
 			climb_status = ClimbStatus.WAITING
 			yield(get_tree().create_timer(0.3),"timeout")
-			climb_status = ClimbStatus.NORMAL
-			if not not is_no_more_in_climb():
+			if climb_status == ClimbStatus.WAITING and not not is_no_more_in_climb():
 				climb_status = ClimbStatus.DETACH
+			else:
+				climb_status = ClimbStatus.NORMAL
 		return
 	# Détection du climb jump
 	if owner.request_jump:
@@ -55,6 +56,7 @@ func exit(new_state):
 	climb_node = null
 	owner.can_climb = false
 	node_climb_timer.start()
+	climb_status = ClimbStatus.NORMAL
 
 func is_no_more_in_climb():
 	if not climb_raycast_wall_check_right.is_colliding() if climb_direction == 1 else not climb_raycast_wall_check_left.is_colliding():

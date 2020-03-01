@@ -4,7 +4,7 @@
 [ext_resource path="res://src/player/states/Idle.gd" type="Script" id=2]
 [ext_resource path="res://src/player/Player.gd" type="Script" id=3]
 [ext_resource path="res://src/player/states/Jump.gd" type="Script" id=4]
-[ext_resource path="res://src/player/states/Glissade.gd" type="Script" id=5]
+[ext_resource path="res://src/player/states/Slide.gd" type="Script" id=5]
 [ext_resource path="res://assets/imgs/player_ALL/GOOS4X.png" type="Texture" id=6]
 [ext_resource path="res://src/player/sub_states/None.gd" type="Script" id=7]
 [ext_resource path="res://src/global/StateMachine.gd" type="Script" id=8]
@@ -717,10 +717,11 @@ collision_mask = 101
 script = ExtResource( 3 )
 
 [node name="body" type="Sprite" parent="."]
+position = Vector2( -25, 0 )
 texture = ExtResource( 6 )
 vframes = 16
 hframes = 16
-frame = 90
+frame = 64
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/climb_L = SubResource( 1 )
@@ -765,7 +766,7 @@ script = ExtResource( 9 )
 [node name="Jump" type="Node2D" parent="StateMachine"]
 script = ExtResource( 4 )
 
-[node name="Glissade" type="Node2D" parent="StateMachine"]
+[node name="Slide" type="Node2D" parent="StateMachine"]
 script = ExtResource( 5 )
 
 [node name="Swim" type="Node2D" parent="StateMachine"]

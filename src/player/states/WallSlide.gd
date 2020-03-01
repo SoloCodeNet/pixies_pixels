@@ -54,7 +54,7 @@ func pre_update():
 		nbr_wall_jump = 0
 		return sub_state("Climb")
 	# décrochage d'un WallSlide en cas d'un appuie long sur la direction opposée
-	if self.current_state == "WallSlide" and owner.direction.x and owner.direction.x == -wall_direction and wall_slide_sticky == StickyMode.STICKY:
+	if owner.direction.x and owner.direction.x == -wall_direction and wall_slide_sticky == StickyMode.STICKY:
 		wall_slide_sticky = StickyMode.WAITING
 		node_wall_sticky_timer.start()
 		return
@@ -72,6 +72,7 @@ func update():
 		owner.cap_gravity = WALL_SLIDE_CAP_GRAVITY if owner.direction.y != 1 else 0 # Si bas on annule le cap
 	
 func exit(new_state):
+	wall_slide_sticky = StickyMode.STICKY
 	owner.cap_gravity = 0 # restaure la gravité quand on quite le WallSlide
 
 func is_ready_walljump() -> bool:

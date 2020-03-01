@@ -24,6 +24,7 @@ script = ExtResource( 1 )
 current = true
 
 [node name="Sprite" type="Sprite" parent="Camera2D"]
+visible = false
 texture = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]

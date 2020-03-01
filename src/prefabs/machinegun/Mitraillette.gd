@@ -11,7 +11,6 @@ var bullet_scene = preload("res://src/prefabs/machinegun/Bullet.tscn")
 
 func _ready() -> void:
 	tm.wait_time = timed
-	
 
 func _process(delta: float) -> void:
 	if is_locked: return 
@@ -23,11 +22,9 @@ func _process(delta: float) -> void:
 		else: 
 			$head.rotation -= deg2rad(rota_speed)
 
-
 func _on_Timer_timeout() -> void:
 	for x in range(rattle):
 		var b = bullet_scene.instance()
 		get_parent().add_child(b)
 		b.start(pos.global_position, $head.rotation, speed)
 		yield(get_tree().create_timer(cooldown), "timeout")
-		

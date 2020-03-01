@@ -1,7 +1,7 @@
 extends "res://src/global/Istate.gd"
 
 var MAX_WALK_SPEED := 400.0
-var MAX_RUN_SPEED := 1100.0
+var MAX_RUN_SPEED := 1000.0
 var ACCELLERATION_WALK := 3200.0
 var ACCELLERATION_RUN := ACCELLERATION_WALK * 1.35
 var AIR_FRICTION = 2000.0
@@ -20,16 +20,18 @@ func pre_update():
 		return state("Jump")
 	if owner.velocity.y > 0 and not owner.is_on_ground_with_delay:
 		return state("Fall")
-	state("Run") if Input.is_action_pressed("run") else state("Walk")
+	if Input.is_action_pressed("run") or abs(owner.velocity.x) > MAX_RUN_SPEED:
+		return state("Run")
+	state("Walk")
 
 func update():
 	
 	# animation
-	self.animation_player.playback_speed	 = range_lerp (abs(owner.velocity.x), 0.0, MAX_RUN_SPEED, 0, 2.5 )
-	
 	if Input.is_action_pressed("run"):
+		self.animation_player.playback_speed = range_lerp (abs(owner.velocity.x), MAX_WALK_SPEED, MAX_RUN_SPEED, 0.5, 1)
 		self.change_anim("run_", true)
 	else:
+		self.animation_player.playback_speed = range_lerp (abs(owner.velocity.x), 0.5, MAX_WALK_SPEED, 0.5, 1)
 		self.change_anim("walk_", true)
 	
 	var speed = ACCELLERATION_RUN if Input.is_action_pressed("run") else ACCELLERATION_WALK
@@ -50,4 +52,4 @@ func update():
 		owner.velocity.x  = lerp(owner.velocity.x , sign(owner.velocity.x) * max_speed, 0.1)	
 
 func exit(new_state):
-	self.animation_player.playback_speed	 = 1
+	self.animation_player.playback_speed = 1

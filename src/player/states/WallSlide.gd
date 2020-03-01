@@ -3,7 +3,8 @@ extends "res://src/global/Istate.gd"
 # WALL SLIDE/JUMP
 var WALL_JUMP_HEIGHT_WALK_AXE_X := 920.0
 var WALL_JUMP_HEIGHT_RUN_AXE_X := 1320.0
-var WALL_SLIDE_CAP_GRAVITY := 600
+var WALL_SLIDE_DECELERATION = 0
+var WALL_SLIDE_CAP_GRAVITY := 550
 var WALL_JUMP_BOOST_VEL_AXE_Y = -2000
 
 onready var left_wall_raycasts =  $'../../StateNodes/WallRaycasts/WallRaycastsLeft'
@@ -66,11 +67,13 @@ func pre_update():
 	
 func update():
 	self.change_anim("climb_", true, false, -1 * wall_direction)
-	
+	owner.cap_gravity = 0
 	# wall slide - on applique le ralentissement (cap) uniquement s'il tombe ou veux stopper
 	if owner.is_falling():
 		owner.cap_gravity = WALL_SLIDE_CAP_GRAVITY if owner.direction.y != 1 else 0 # Si bas on annule le cap
-	
+	#else:
+		#owner.velocity.y += WALL_SLIDE_DECELERATION * Game.get_gravity_direction()
+
 func exit(new_state):
 	wall_slide_sticky = StickyMode.STICKY
 	owner.cap_gravity = 0 # restaure la gravité quand on quite le WallSlide

@@ -8,7 +8,7 @@ var tile_size = 8
 var floor_normal = Vector2.UP
 
 # Debug
-const debug = true
+const debug = false
 const debug_player = true
 const debug_enemies = true
 const debug_state = false

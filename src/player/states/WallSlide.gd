@@ -7,10 +7,10 @@ var WALL_SLIDE_DECELERATION := 0
 var WALL_SLIDE_CAP_GRAVITY := 550
 var WALL_JUMP_BOOST_VEL_AXE_Y := -1800
 
-onready var left_wall_raycasts =  $'../../StateNodes/WallRaycasts/WallRaycastsLeft'
-onready var right_wall_raycasts = $'../../StateNodes/WallRaycasts/WallRaycastsRight'
-onready var bottom_wall_raycast = $'../../StateNodes/MinGroundDistance'
-onready var node_wall_sticky_timer = $'../../StateNodes/WallStickyTimer'
+onready var left_wall_raycasts: RayCast2D =  $'../../StateNodes/WallRaycasts/WallRaycastsLeft'
+onready var right_wall_raycasts: RayCast2D = $'../../StateNodes/WallRaycasts/WallRaycastsRight'
+onready var bottom_wall_raycast: RayCast2D = $'../../StateNodes/MinGroundDistance'
+onready var node_wall_sticky_timer: Timer = $'../../StateNodes/WallStickyTimer'
 
 var wall_direction := 0 # Direction de contact avec un mur (-1 gauche, 0 rien, 1 droite)
 var prev_wall_direction := 0

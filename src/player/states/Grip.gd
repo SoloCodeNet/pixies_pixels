@@ -1,13 +1,13 @@
 extends "res://src/global/Istate.gd"
 
 # Climb Node
-onready var climb_raycast_right =  $'../../StateNodes/ClimbRayCasts/ClimbRayCastRight'
-onready var climb_raycast_wall_check_right =  $'../../StateNodes/ClimbRayCasts/ClimbWallRayCastRight'
-onready var climb_raycast_left =  $'../../StateNodes/ClimbRayCasts/ClimbRayCastLeft'
-onready var climb_raycast_wall_check_left =  $'../../StateNodes/ClimbRayCasts/ClimbWallRayCastLeft'
+onready var climb_raycast_right: RayCast2D =  $'../../StateNodes/ClimbRayCasts/ClimbRayCastRight'
+onready var climb_raycast_wall_check_right: RayCast2D =  $'../../StateNodes/ClimbRayCasts/ClimbWallRayCastRight'
+onready var climb_raycast_left: RayCast2D =  $'../../StateNodes/ClimbRayCasts/ClimbRayCastLeft'
+onready var climb_raycast_wall_check_left : RayCast2D=  $'../../StateNodes/ClimbRayCasts/ClimbWallRayCastLeft'
 
-onready var node_climb_timer = $'../../StateNodes/ClimbTimer'
-onready var climb_min_heigth = $'../../StateNodes/MinGroundDistance'
+onready var node_climb_timer : Timer = $'../../StateNodes/ClimbTimer'
+onready var climb_min_heigth : RayCast2D = $'../../StateNodes/MinGroundDistance'
 
 var climb_detach_do := false
 var climb_direction := 0

@@ -7,6 +7,8 @@ var ACCELLERATION_RUN := ACCELLERATION_WALK * 1.35
 var AIR_FRICTION := 2000.0
 var SLIDE_FACTOR := 1.2
 
+onready var node_slide = $"../Slide"
+
 func handled_states():
 	return ["Walk", "Run"]
 	
@@ -14,7 +16,7 @@ func pre_update():
 	# détection des états
 	if not owner.direction and owner.velocity.x == 0:
 		return state("Idle")
-	if Input.is_action_just_pressed("slide") and self.current_state == "Run" and not owner.glissade_recovery:
+	if Input.is_action_just_pressed("slide") and self.current_state == "Run" and node_slide.can_slide():
 		return sub_state("Slide")
 	if owner.request_jump:
 		return state("Jump")
@@ -25,9 +27,10 @@ func pre_update():
 	state("Walk")
 
 func update():
-	
 	# animation
-	if Input.is_action_pressed("run"):
+	if owner.velocity.x == 0:
+		self.change_anim("idle_1")
+	elif Input.is_action_pressed("run"):
 		self.animation_player.playback_speed = range_lerp (abs(owner.velocity.x), MAX_WALK_SPEED, MAX_RUN_SPEED, 0.5, 1)
 		self.change_anim("run_", true)
 	else:
